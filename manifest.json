@@ -1,0 +1,16 @@
+{
+  "name": "WETrendingTeam",
+  "short_name": "WETrending",
+  "description": "A fan engagement platform for trending updates, campaigns and community interaction.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b0014",
+  "theme_color": "#8b0000",
+  "icons": [
+    {
+      "src": "images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

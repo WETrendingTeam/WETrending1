@@ -1,0 +1,1196 @@
+/* ==========================================
+   TREND STUDIO 2026
+   PART 1 - RESET + LAYOUT
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+
+    --bg:#f8fafc;
+    --panel:#ffffff;
+    --panel2:#f1f5f9;
+
+    --primary:#dc2626;
+    --primary-hover:#b91c1c;
+
+    --text:#0f172a;
+    --muted:#64748b;
+
+    --border:#e2e8f0;
+
+    --success:#22c55e;
+    --danger:#ef4444;
+
+    --radius:18px;
+
+}
+
+body{
+
+    font-family:'Inter',sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    min-height:100vh;
+
+}
+
+
+
+/* ==========================
+TOP BAR
+========================== */
+
+.topbar{
+
+    height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 25px;
+
+    background:var(--panel);
+
+    color:var(--text);
+
+    border-bottom:1px solid var(--border);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:999;
+
+}
+
+.brand h1{
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+
+
+.brand span{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-top:4px;
+
+}
+
+
+
+/* ==========================
+BUTTONS
+========================== */
+
+.icon-btn{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    background:var(--panel);
+
+    color:white;
+
+    font-size:18px;
+
+    transition:.25s;
+
+}
+
+.icon-btn:hover{
+
+    background:var(--primary);
+
+}
+
+
+
+/* ==========================
+APP
+========================== */
+
+.app{
+
+    display:flex;
+
+    min-height:calc(100vh - 70px);
+
+}
+/* ==========================================
+   SIDEBAR
+========================================== */
+
+.sidebar{
+
+    width:180px;
+
+    background:var(--panel);
+
+    border-right:1px solid var(--border);
+
+    padding:20px 12px;
+
+    flex-shrink:0;
+
+}
+
+.sidebar-header{
+
+    font-size:11px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    color:var(--muted);
+
+    margin-bottom:20px;
+
+    padding-left:10px;
+
+    font-weight:600;
+
+}
+
+
+
+/* ==========================
+TOOLS
+========================== */
+
+.tool-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+}
+
+
+
+.tool{
+
+    width:100%;
+
+    background:transparent;
+
+    border:none;
+
+    color:var(--muted);
+
+    text-align:left;
+
+    padding:10px 12px;
+
+    border-radius:10px;
+
+    font-size:14px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+
+
+.tool:hover{
+
+    background:rgba(220,38,38,.08);
+
+    color:#dc2626;
+
+}
+
+
+
+.tool.active{
+
+    background:rgba(220,38,38,.12);
+
+    color:#dc2626;
+
+    border-left:4px solid #dc2626;
+
+    font-weight:600;
+
+    padding-left:8px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   WORKSPACE
+========================================== */
+
+.workspace{
+
+    flex:1;
+
+    padding:28px;
+
+    overflow-y:auto;
+
+}
+
+
+
+.workspace h2{
+
+    font-size:28px;
+
+    margin-bottom:25px;
+
+    font-weight:700;
+
+}
+
+
+
+/* ==========================
+PANELS
+========================== */
+
+.panel{
+
+    background:var(--panel);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:22px;
+
+    margin-bottom:22px;
+
+}
+
+
+
+.panel-header{
+
+    margin-bottom:18px;
+
+}
+
+
+
+.panel-header h3{
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+
+
+/* ==========================
+FIELDS
+========================== */
+
+.field{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:18px;
+
+}
+
+
+
+.field:last-child{
+
+    margin-bottom:0;
+
+}
+
+
+
+.field label{
+
+    font-size:13px;
+
+    color:var(--muted);
+
+    margin-bottom:8px;
+
+}
+
+
+
+.field input,
+.field select{
+
+    width:100%;
+
+    height:48px;
+
+    background:var(--panel2);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    padding:0 14px;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.25s;
+
+}
+
+
+.field input::placeholder{
+
+    color:var(--muted);
+
+}
+
+.field input:focus,
+.field select:focus{
+
+    border-color:var(--primary);
+
+}
+
+
+
+/* ==========================
+KEYWORDS + LINKS
+========================== */
+
+.field-row{
+
+    display:flex;
+
+    gap:18px;
+
+}
+
+
+
+.grow{
+
+    flex:1;
+
+}
+
+
+
+.small{
+
+    width:120px;
+
+}
+
+/* ==========================================
+   PILL BUTTONS
+========================================== */
+
+.pill-group{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+}
+
+.pill-group button{
+
+    border:none;
+
+    background:var(--panel2);
+
+    color:var(--text);
+
+    padding:12px 18px;
+
+    border-radius:999px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    transition:.25s;
+
+}
+
+.pill-group button:hover{
+
+    background:var(--primary);
+
+}
+
+.pill-group button.selected{
+
+    background:var(--primary);
+
+    font-weight:600;
+
+}
+
+
+
+/* ==========================================
+   URL MANAGER
+========================================== */
+
+#urlContainer{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    margin-bottom:18px;
+
+}
+
+.url-row{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+.url-input{
+
+    flex:1;
+
+    height:46px;
+
+    background:var(--panel2);
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    color:#fff;
+
+    padding:0 14px;
+
+}
+
+.remove-url{
+
+    width:46px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--danger);
+
+    color:#fff;
+
+    cursor:pointer;
+
+}
+
+
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.secondary-btn{
+
+    width:100%;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--panel2);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.secondary-btn:hover{
+
+    background:var(--primary);
+
+}
+
+
+
+.generate-btn{
+
+    width:100%;
+
+    height:56px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:var(--primary);
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.generate-btn:hover{
+
+    background:var(--primary-hover);
+
+    transform:translateY(-2px);
+
+}
+
+
+
+/* ==========================================
+   RESULTS
+========================================== */
+
+.results{
+
+    margin-top:30px;
+
+}
+
+.results-header{
+
+    margin-bottom:18px;
+
+}
+
+#resultsContainer{
+
+    display:grid;
+
+    gap:18px;
+
+}
+
+.result-card{
+
+    background:var(--panel);
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:20px;
+
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width:900px){
+
+.app{
+
+    flex-direction:column;
+
+}
+
+.sidebar{
+
+    position:fixed;
+
+    top:70px;
+
+    left:-220px;
+
+    width:200px;
+
+    height:calc(100vh - 70px);
+
+    transition:.3s;
+
+    z-index:999;
+
+}
+
+.sidebar.open{
+
+    left:0;
+
+}
+
+.workspace{
+
+    width:100%;
+
+    padding:40px 28px 28px;
+
+}
+
+.field-row{
+
+    flex-direction:column;
+
+}
+
+.small{
+
+    width:100%;
+
+}
+
+.pill-group{
+
+    gap:10px;
+
+}
+
+.pill-group button{
+
+    flex:1;
+
+}
+
+}
+
+
+
+/* ==========================================
+   LIGHT MODE
+========================================== */
+
+body.light{
+
+    --bg:#f4f7fb;
+
+    --panel:#ffffff;
+
+    --panel2:#f8fafc;
+
+    --text:#0f172a;
+
+    --muted:#64748b;
+
+    --border:#dbe4f0;
+
+}
+
+
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#3b82f6;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
+
+
+
+/* ==========================================
+   ANIMATION
+========================================== */
+
+.panel,
+.result-card{
+
+    animation:fadeUp .35s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(12px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/* ==========================================
+   TREND STUDIO OVERRIDES
+========================================== */
+
+
+/* ---------- TOP BAR ---------- */
+
+.topbar{
+
+    background:var(--panel);
+
+    color:var(--text);
+
+}
+
+
+
+/* ---------- MENU BUTTON ---------- */
+
+.icon-btn{
+
+    background:#e5e7eb;
+
+    color:#111827;
+
+    border:1px solid var(--border);
+
+}
+
+
+.icon-btn:hover{
+
+    background:#dc2626;
+
+    color:white;
+
+}
+
+
+
+/* ---------- TOOL ACTIVE COLOR ---------- */
+
+.tool.active{
+
+    background:rgba(220,38,38,.08);
+
+    color:#b91c1c;
+
+    border-left:3px solid #b91c1c;
+
+}
+
+
+
+.tool:hover{
+
+    background:rgba(220,38,38,.05);
+
+    color:#b91c1c;
+
+}
+
+
+
+/* ---------- INPUT TEXT ---------- */
+
+.field input,
+.field select{
+
+    color:var(--text);
+
+}
+
+
+
+.field input::placeholder{
+
+    color:var(--muted);
+
+}
+
+
+
+/* ---------- TITLE SPACING ---------- */
+
+.workspace{
+
+    padding-top:40px;
+
+}
+
+/* ==========================
+DARK MODE
+========================== */
+
+body.dark{
+
+    --bg:#0f172a;
+
+    --panel:#172036;
+
+    --panel2:#1f2b46;
+
+    --text:#ffffff;
+
+    --muted:#94a3b8;
+
+    --border:#28344d;
+
+}
+
+/* ==========================================
+   TREND STUDIO GRADIENT THEME
+========================================== */
+
+
+/* Main accent gradient */
+
+:root{
+
+    --primary-gradient:
+    linear-gradient(
+        135deg,
+        #ef4444,
+        #2563eb
+    );
+
+}
+
+
+
+/* Active tool */
+
+.tool.active{
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(239,68,68,.12),
+        rgba(37,99,235,.12)
+    );
+
+    color:#2563eb;
+
+    border-left:3px solid #ef4444;
+
+}
+
+
+
+/* Tool hover */
+
+.tool:hover{
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(239,68,68,.08),
+        rgba(37,99,235,.08)
+    );
+
+}
+
+
+
+/* Main buttons */
+
+.generate-btn,
+.primary-btn{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ef4444,
+        #2563eb
+    );
+
+    border:none;
+
+    color:white;
+
+}
+
+
+
+/* Hover buttons */
+
+.generate-btn:hover,
+.primary-btn:hover{
+
+    opacity:.9;
+
+}
+
+
+
+/* Selected pills */
+
+.pill-group button.selected{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ef4444,
+        #2563eb
+    );
+
+    color:white;
+
+}
+
+/* ==========================================
+   BUTTON CLEANUP
+========================================== */
+
+
+/* Menu button */
+
+.icon-btn{
+
+    background:var(--panel2);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+}
+
+
+.icon-btn:hover{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ef4444,
+        #2563eb
+    );
+
+    color:white;
+
+}
+
+
+
+/* URL cancel/remove button */
+
+.remove-url{
+
+    background:var(--panel2);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+}
+
+
+.remove-url:hover{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ef4444,
+        #2563eb
+    );
+
+    color:white;
+
+}
+
+/* ==========================================
+   LIGHT / DARK VISIBILITY FIXES
+========================================== */
+
+
+/* Add URL + Clear Campaign buttons */
+
+.secondary-btn,
+.add-url{
+
+    background:var(--panel2);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+}
+
+
+.secondary-btn:hover,
+.add-url:hover{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ef4444,
+        #2563eb
+    );
+
+    color:white;
+
+}
+
+
+
+/* Select dropdown arrow visibility */
+
+select{
+
+    color:var(--text);
+
+    background-color:var(--panel2);
+
+}
+
+
+/* Dark mode select arrow */
+
+body.dark select{
+
+    color:white;
+
+    background-color:var(--panel2);
+
+}
+
+
+
+/* Make option text visible */
+
+select option{
+
+    background:var(--panel);
+
+    color:var(--text);
+
+}
+
+/* ==========================================
+   URL INPUT + SELECT VISIBILITY FIX
+========================================== */
+
+
+/* URL typing field */
+
+.url-input{
+
+    background:var(--panel2);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+}
+
+
+.url-input::placeholder{
+
+    color:var(--muted);
+
+}
+
+
+
+/* Link option dropdown */
+
+#linkCount{
+
+    background:var(--panel2);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+}
+
+
+
+/* Dark mode dropdown arrow visibility */
+
+body.dark #linkCount{
+
+    color-scheme:dark;
+
+}
+
+/* Campaign action buttons */
+
+.campaign-actions{
+
+    display:flex;
+
+    gap:12px;
+
+    width:100%;
+
+}
+
+
+.campaign-actions button{
+
+    flex:1;
+
+    height:48px;
+
+    border-radius:12px;
+
+}
+
+
+

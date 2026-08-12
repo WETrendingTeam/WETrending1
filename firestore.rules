@@ -1,0 +1,56 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isControl() {
+      return signedIn() &&
+        request.auth.token.email == "lade.galleria@gmail.com";
+    }
+
+    function isAdmin() {
+      return signedIn() &&
+        request.auth.token.email == "wetrendingteam@gmail.com";
+    }
+
+    function isManagement() {
+      return isControl() || isAdmin();
+    }
+
+    match /users/{userId} {
+      allow read: if signedIn() && (
+        request.auth.uid == userId ||
+        resource.data.email == request.auth.token.email ||
+        isManagement()
+      );
+      allow write: if isManagement();
+    }
+
+    match /notifications/{notificationId} {
+      allow read: if isAdmin() || isControl();
+      allow write: if isAdmin();
+    }
+
+    match /fcmTokens/{tokenId} {
+      allow create: if signedIn() &&
+        request.resource.data.uid == request.auth.uid;
+      allow read, update, delete: if isAdmin() || isControl();
+    }
+
+    match /campaigns/{campaignId} {
+      allow read, write: if isControl();
+    }
+
+    match /trendRequests/{requestId} {
+      allow read, write: if isControl();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

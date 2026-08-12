@@ -1,0 +1,14 @@
+WETrendingTeam FCM - corrected project
+
+IMPORTANT BEFORE TESTING
+1. Firebase Console -> Authentication -> Sign-in method.
+2. Enable Anonymous sign-in.
+3. Save.
+
+The Hub notification button then: requests permission -> creates an anonymous Firebase identity -> registers the FCM service worker -> gets the FCM token -> saves it in Firestore /fcmTokens.
+
+Firestore rules currently require signed-in users to create FCM tokens, so Anonymous Auth is used for normal Hub visitors.
+
+Do NOT delete the existing firebase-messaging-sw.js.
+
+The project files are otherwise kept as close as possible to the supplied version.

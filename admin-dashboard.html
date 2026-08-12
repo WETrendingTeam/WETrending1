@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WETrendingTeam Admin Panel</title>
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+<div class="dashboard">
+<header class="topbar">
+  <div class="brand">
+    <img src="images/logo.png" alt="Logo">
+    <div>
+      <h2>WETrendingTeam</h2>
+      <p>Admin Panel</p>
+    </div>
+  </div>
+  <div class="user-info">
+    <span>Admin</span>
+    <button id="adminLogoutBtn">Logout</button>
+  </div>
+</header>
+
+<section class="welcome">
+  <h1>Admin Panel 🔔</h1>
+  <p>Notifications and basic moderation.</p>
+</section>
+
+<section class="stats">
+  <div class="stat-card"><h3>Total Users</h3><h2 id="adminUsersCount">0</h2></div>
+  <div class="stat-card"><h3>Notifications</h3><h2 id="adminNotificationCount">0</h2></div>
+</section>
+
+<section class="actions">
+  <h2>Admin Actions</h2>
+  <div class="action-grid">
+    <a href="send-notification.html" class="action-card">
+      🔔 <span>Send Notification</span>
+    </a>
+    <a href="notifications.html" class="action-card">
+      📢 <span>Notification History</span>
+    </a>
+  </div>
+</section>
+</div>
+
+<script type="module" src="admin-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WETrendingTeam Control Center</title>
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="login-container">
+  <div class="login-card">
+    <img src="images/logo.png" class="logo" alt="WETrendingTeam Logo">
+    <h1>WETrendingTeam</h1>
+    <h2>Control Center &amp; Updates</h2>
+    <p class="description">Secure access for authorized management.</p>
+
+    <form id="loginForm">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email"
+             autocomplete="username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter your password"
+             autocomplete="current-password" required>
+
+      <label class="remember">
+        <input type="checkbox" id="remember"> Remember me
+      </label>
+
+      <button type="submit" id="loginButton">Login</button>
+      <p class="forgot-password"><a href="#" id="controlResetLink">Forgot password?</a></p>
+      <p id="loginStatus" class="login-status" aria-live="polite"></p>
+    </form>
+
+    <footer>
+      <p>Authorized account: <strong>Lade.g…..</strong></p>
+      <p>© 2026 WETrendingTeam</p>
+    </footer>
+  </div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script>const firebaseConfig = {
+  apiKey: "AIzaSyDY5F84tiRyDLNPBaBGpO5giwxlJ4q27Cg",
+  authDomain: "wetrendingteam-1f8ce.firebaseapp.com",
+  projectId: "wetrendingteam-1f8ce",
+  storageBucket: "wetrendingteam-1f8ce.firebasestorage.app",
+  messagingSenderId: "1072737815830",
+  appId: "1:1072737815830:web:4fce8aa6e88680404e1437",
+  measurementId: "G-21NRQ5TYPB"
+};
+
+firebase.initializeApp(firebaseConfig);</script>
+<script src="control-center.js"></script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+/* ==========================================
+   WETrendingTeam Control Center
+   admin.css
+========================================== */
+
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter, Arial, sans-serif;
+}
+
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:25px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #08152F,
+        #0B1F4D,
+        #5A1020
+    );
+
+    color:white;
+
+}
+
+
+
+
+.login-container{
+
+    width:100%;
+
+    max-width:450px;
+
+}
+
+
+
+
+.login-card{
+
+
+    background:rgba(255,255,255,0.08);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:22px;
+
+    padding:35px 28px;
+
+    box-shadow:
+    0 20px 50px rgba(0,0,0,.35);
+
+
+}
+
+
+
+
+
+.logo{
+
+    width:90px;
+
+    height:90px;
+
+    display:block;
+
+    margin:0 auto 20px;
+
+    object-fit:contain;
+
+}
+
+
+
+h1{
+
+    text-align:center;
+
+    font-size:30px;
+
+    margin-bottom:5px;
+
+}
+
+
+
+h2{
+
+    text-align:center;
+
+    font-size:18px;
+
+    color:#CBD5E1;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.description{
+
+    text-align:center;
+
+    color:#CBD5E1;
+
+    font-size:14px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+
+/* Role Buttons */
+
+
+.role-selector{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.role-card{
+
+
+    flex:1;
+
+    padding:15px 5px;
+
+    text-align:center;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:600;
+
+
+}
+
+
+
+.role-card:hover{
+
+    border-color:white;
+
+}
+
+
+
+.role-card.active{
+
+    background:#163A75;
+
+    border-color:#6EA8FF;
+
+}
+
+
+
+
+
+/* Form */
+
+
+label{
+
+    display:block;
+
+    margin-top:15px;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+
+}
+
+
+
+input[type="email"],
+input[type="password"]{
+
+
+    width:100%;
+
+    height:48px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:12px;
+
+    padding:0 15px;
+
+    font-size:15px;
+
+
+}
+
+
+
+
+.remember{
+
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-top:18px;
+
+}
+
+
+
+.remember input{
+
+    width:auto;
+
+}
+
+
+
+
+button{
+
+
+    width:100%;
+
+    height:50px;
+
+    margin-top:25px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#B11226;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+
+button:hover{
+
+    background:#8f0d1e;
+
+}
+
+
+
+
+
+footer{
+
+    text-align:center;
+
+    margin-top:30px;
+
+    color:#CBD5E1;
+
+    font-size:12px;
+
+}
+.role-note{margin:0 0 18px;opacity:.8;font-size:.9rem;line-height:1.4}.login-status{min-height:24px;margin-top:12px;font-size:.9rem}
+
+.forgot-password{
+  margin:10px 0 4px;
+  text-align:center;
+  font-size:.9rem;
+}
+.forgot-password a{
+  text-decoration:underline;
+  cursor:pointer;
+}

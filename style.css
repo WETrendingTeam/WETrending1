@@ -1,0 +1,3818 @@
+/* ==================================================
+   WETrendingTeam CLEAN PREMIUM CSS
+   VERSION 3.0
+================================================== */
+
+
+/* ===========================
+   RESET
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+html{
+    scroll-behavior:smooth;
+}
+
+
+/* ==========================================
+   PREMIUM WEBSITE BACKGROUND
+========================================== */
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:
+    linear-gradient(
+        180deg,
+        #F8FAFC 0%,
+        #FCFDFE 25%,
+        #F4F7FB 50%,
+        #FAFBFD 75%,
+        #F8FAFC 100%
+    );
+
+    color:#1E293B;
+
+}
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+
+/* ===========================
+   VARIABLES
+=========================== */
+
+
+:root{
+
+    --primary:#2563EB;
+
+    --secondary:#DC2626;
+
+    --dark:#0F172A;
+
+    --light:#F8FAFC;
+
+    --card:#FFFFFF;
+
+    --text:#1E293B;
+
+    --muted:#64748B;
+
+    --shadow:0 12px 35px rgba(0,0,0,.08);
+
+    --radius:18px;
+
+}
+
+
+
+/* ===========================
+   LOADER
+=========================== */
+
+
+#loader{
+
+    position:fixed;
+
+    inset:0;
+
+    background:#0F172A;
+
+    z-index:9999;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+#loader img{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    margin-bottom:15px;
+
+}
+
+
+#loader h2{
+
+    color:white;
+
+    font-size:26px;
+
+}
+
+
+#loader p{
+
+    color:#CBD5E1;
+
+    font-size:13px;
+
+    margin:10px 0 25px;
+
+}
+
+
+.loading-bar{
+
+    width:220px;
+
+    height:6px;
+
+    background:#334155;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+
+.loading-progress{
+
+    height:100%;
+
+    width:0;
+
+    background:linear-gradient(
+        90deg,
+        #2563EB,
+        #DC2626
+    );
+
+    animation:loading 2s forwards;
+
+}
+
+
+@keyframes loading{
+
+    from{
+        width:0;
+    }
+
+    to{
+        width:100%;
+    }
+
+}
+
+
+
+/* ==================================================
+   NAVBAR
+================================================== */
+
+
+.navbar{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:65px;
+
+    padding:0 5%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    z-index:1000;
+
+    background:rgba(15,23,42,.45);
+
+    backdrop-filter:blur(15px);
+
+}
+
+
+
+/* LOGO */
+
+
+.nav-logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+.nav-logo img{
+
+    width:38px;
+
+    height:38px;
+
+    border-radius:50%;
+
+}
+
+
+.nav-logo span{
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    white-space:nowrap;
+
+}
+
+
+
+/* LINKS */
+
+
+.nav-links{
+
+    display:flex;
+
+    gap:28px;
+
+    list-style:none;
+
+}
+
+
+.nav-links a{
+
+    color:white;
+
+    font-size:14px;
+
+    font-weight:500;
+
+}
+
+
+.nav-links a:hover{
+
+    color:#DC2626;
+
+}
+
+
+
+/* ACTION BUTTONS */
+
+
+.nav-actions{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+
+#themeToggle,
+.menu-btn{
+
+    width:38px;
+
+    height:38px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.15);
+
+    color:white;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+.menu-btn{
+
+    display:none;
+
+}
+
+
+
+
+/* MOBILE NAV */
+
+
+@media(max-width:900px){
+
+
+    .nav-links{
+
+        display:none;
+
+    }
+
+
+    .menu-btn{
+
+        display:flex;
+
+    }
+
+
+    .nav-logo span{
+
+        font-size:15px;
+
+    }
+
+}
+
+/* ==================================================
+   HERO SECTION
+================================================== */
+
+.hero{
+
+    position:relative;
+
+    height:50vh;
+
+    width:100%;
+
+    overflow:hidden;
+
+    margin-top:65px;
+
+}
+
+
+
+/* SLIDER */
+
+.slider{
+
+    position:absolute;
+
+    inset:0;
+
+}
+
+.slide{
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    opacity:0;
+
+    transition:opacity 1s ease;
+
+}
+
+.slide.active{
+
+    opacity:1;
+
+}
+
+
+
+/* OVERLAY */
+
+.overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,.40);
+
+}
+
+
+
+/* HERO CONTENT */
+
+.hero-content{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:3;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    padding-bottom:22px;
+
+}
+
+
+/* BUTTON AREA */
+
+.hero-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+}
+
+
+
+/* HERO BUTTON */
+
+.hero-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    color:#ffffff;
+
+    background:#DC2626;
+
+    box-shadow:0 6px 18px rgba(0,0,0,.20);
+
+    transition:.3s;
+
+}
+
+.hero-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.hero-btn.secondary{
+
+    background:#2563EB;
+
+}
+
+
+
+/* SCROLL ICON */
+
+.scroll{
+
+    position:absolute;
+
+    bottom:12px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:5;
+
+    color:white;
+
+    font-size:20px;
+
+    animation:bounce 2s infinite;
+
+}
+
+@keyframes bounce{
+
+    0%,100%{
+
+        transform:translate(-50%,0);
+
+    }
+
+    50%{
+
+        transform:translate(-50%,-6px);
+
+    }
+
+}
+
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .hero{
+
+        height:42vh;
+
+    }
+
+    .hero-content{
+
+        padding-bottom:18px;
+
+    }
+
+    .hero-buttons{
+
+        gap:8px;
+
+    }
+
+    .hero-btn{
+
+        padding:7px 14px;
+
+        font-size:10px;
+
+    }
+
+}
+
+/* ==================================================
+   COUNTDOWN SECTION
+================================================== */
+
+
+.countdown{
+
+    padding:35px 15px;
+
+    text-align:center;
+
+}
+
+
+
+.countdown h2{
+
+    font-size:20px;
+
+    color:var(--primary);
+
+    margin-bottom:8px;
+
+}
+
+
+
+.countdown p{
+
+    font-size:12px;
+
+    color:var(--muted);
+
+    margin-bottom:20px;
+
+}
+
+
+
+/* ==================================================
+   COUNTDOWN
+================================================== */
+
+
+.timer{
+
+    max-width:700px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:12px;
+
+}
+
+
+
+.time-box{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:15px 8px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+
+.time-box h3{
+
+    color:var(--secondary);
+
+    font-size:28px;
+
+    margin-bottom:3px;
+
+}
+
+
+
+.time-box span{
+
+    font-size:10px;
+
+    color:var(--muted);
+
+    text-transform:uppercase;
+
+}
+
+
+
+/* ==================================================
+   TODAY'S MISSION
+================================================== */
+
+
+.mission{
+
+    padding:35px 15px;
+
+    text-align:center;
+
+    background:#F1F5F9;
+
+}
+
+
+
+.mission h2{
+
+    font-size:20px;
+
+    color:var(--primary);
+
+    margin-bottom:10px;
+
+}
+
+
+
+.mission p{
+
+    font-size:12px;
+
+    color:var(--muted);
+
+    margin-bottom:25px;
+
+}
+
+
+
+.mission-grid{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:15px;
+
+}
+
+
+
+.mission-card{
+
+    color:white;
+
+    border-radius:18px;
+
+    padding:20px 12px;
+
+    min-height:180px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+
+.mission-card i{
+
+    font-size:35px;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.mission-card h3{
+
+    font-size:17px;
+
+    margin-bottom:8px;
+
+}
+
+
+
+.mission-card span{
+
+    font-size:11px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+/* BUTTON */
+
+
+.go-btn{
+
+    background:white;
+
+    color:#111827;
+
+    padding:7px 18px;
+
+    border-radius:30px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+
+
+/* PLATFORM COLORS */
+
+
+.instagram{
+
+    background:linear-gradient(
+        135deg,
+        #833AB4,
+        #E1306C,
+        #FCAF45
+    );
+
+}
+
+
+
+.tiktok{
+
+    background:#111111;
+
+}
+
+
+
+.youtube{
+
+    background:#DC2626;
+
+}
+
+
+
+.facebook{
+
+    background:#2563EB;
+
+}
+
+
+
+/* ==================================================
+   LATEST ANNOUNCEMENT
+================================================== */
+
+
+.announcement{
+
+    padding:35px 15px;
+
+}
+
+
+
+.announcement-card{
+
+    max-width:850px;
+
+    margin:auto;
+
+    background:linear-gradient(
+        135deg,
+        #2563EB,
+        #1D4ED8
+    );
+
+    color:white;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+
+.announcement-tag{
+
+    display:inline-block;
+
+    background:#DC2626;
+
+    padding:6px 15px;
+
+    border-radius:30px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.announcement-card h2{
+
+    font-size:18px;
+
+    margin-bottom:12px;
+
+}
+
+
+
+.announcement-card p{
+
+    font-size:12px;
+
+    line-height:1.6;
+
+}
+
+
+
+.announcement-card li{
+
+    font-size:12px;
+
+    margin:5px 0;
+
+}
+
+
+
+/* ==================================================
+   RATING MISSIONS
+================================================== */
+
+
+.ratings{
+
+    padding:35px 15px;
+
+    text-align:center;
+
+}
+
+
+
+.ratings h2{
+
+    font-size:20px;
+
+    color:var(--primary);
+
+    margin-bottom:10px;
+
+}
+
+
+
+.ratings p{
+
+    font-size:12px;
+
+    color:var(--muted);
+
+    margin-bottom:25px;
+
+}
+
+
+
+.rating-grid{
+
+    max-width:900px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,minmax(0,1fr));
+
+    gap:15px;
+
+    width:100%;
+
+}
+
+
+.rating-card{
+
+    background:rgba(255,255,255,.85);
+
+    border-radius:18px;
+
+    padding:14px 12px !important;
+
+    min-height:145px !important;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    box-sizing:border-box;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.06);
+
+}
+
+.platform-logo{
+
+    width:80px;
+
+    height:45px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:8px;
+
+}
+
+.platform-logo img{
+
+    max-width:100%;
+
+    max-height:100%;
+
+    object-fit:contain;
+
+}
+
+
+
+.rating-card span{
+
+    background:#FACC15;
+
+    color:#111827;
+
+    padding:5px 15px;
+
+    border-radius:20px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.rating-status{
+
+    font-size:11px;
+
+    color:var(--muted);
+
+}
+
+
+/* ==================================================
+   KEEP HORIZONTAL LAYOUT
+================================================== */
+
+
+@media(max-width:900px){
+
+    .timer{
+
+        grid-template-columns:repeat(4,1fr);
+
+    }
+
+
+    .mission-grid{
+
+        grid-template-columns:repeat(4,1fr);
+
+    }
+
+
+    .rating-grid{
+
+        grid-template-columns:repeat(3,1fr);
+
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .timer{
+
+        grid-template-columns:repeat(4,1fr);
+
+    }
+
+
+    .mission-grid{
+
+        grid-template-columns:repeat(4,1fr);
+
+    }
+
+
+    .rating-grid{
+
+        grid-template-columns:repeat(3,1fr);
+
+    }
+
+}
+/* ==================================================
+   EVENTS SECTION
+================================================== */
+
+
+.events{
+
+    padding:35px 15px;
+
+    text-align:center;
+
+}
+
+
+
+.events h2{
+
+    font-size:20px;
+
+    color:var(--primary);
+
+    margin-bottom:25px;
+
+}
+
+
+
+.event-card{
+
+    max-width:800px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:25px 20px;
+
+    border-radius:18px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+
+.event-card h3{
+
+    font-size:18px;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.event-card p{
+
+    font-size:12px;
+
+    line-height:1.6;
+
+    color:var(--text-light);
+
+}
+
+
+
+.event-card span{
+
+    display:inline-block;
+
+    margin-top:12px;
+
+    background:#FACC15;
+
+    padding:6px 18px;
+
+    border-radius:30px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+
+
+/* ==================================================
+   ABOUT SECTION
+================================================== */
+
+
+.about{
+
+    padding:35px 15px;
+
+    text-align:center;
+
+}
+
+
+
+.about h2{
+
+    font-size:20px;
+
+    color:var(--primary);
+
+    margin-bottom:10px;
+
+}
+
+
+
+.about p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    font-size:12px;
+
+    line-height:1.7;
+
+}
+
+
+
+/* ==================================================
+   FOOTER COMPACT VERSION
+================================================== */
+
+
+.footer{
+
+    background:var(--footer);
+
+    color:white;
+
+    padding:35px 20px 15px;
+
+}
+
+
+
+.footer-container{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:25px;
+
+    align-items:start;
+
+}
+
+
+
+.footer-logo{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.footer-brand h2{
+
+    font-size:20px;
+
+    margin-bottom:8px;
+
+}
+
+
+
+.footer-brand p{
+
+    font-size:11px;
+
+    line-height:1.5;
+
+    color:#CBD5E1;
+
+}
+
+
+
+.footer-links h3,
+.footer-social h3{
+
+    font-size:15px;
+
+    margin-bottom:12px;
+
+}
+
+
+
+.footer-links li{
+
+    list-style:none;
+
+    font-size:12px;
+
+    margin-bottom:7px;
+
+}
+
+
+
+.footer-links a{
+
+    color:#CBD5E1;
+
+}
+
+
+
+.social-icons{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+
+
+.social-icons a{
+
+    width:35px;
+
+    height:35px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.1);
+
+}
+
+
+
+/* FOOTER BOTTOM */
+
+
+.footer-bottom{
+
+    margin-top:20px;
+
+    padding-top:12px;
+
+    border-top:1px solid rgba(255,255,255,.15);
+
+}
+
+
+
+.footer-bottom p{
+
+    font-size:10px;
+
+    text-align:center;
+
+}
+
+
+
+/* MOBILE */
+
+
+@media(max-width:800px){
+
+
+    .footer-container{
+
+        grid-template-columns:1fr;
+
+        text-align:center;
+
+    }
+
+
+    .social-icons{
+
+        justify-content:center;
+
+    }
+
+}
+/* ==================================================
+   TODAY'S MISSION - ORIGINAL SQUARE STYLE
+================================================== */
+
+
+.mission-grid{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:15px;
+
+}
+
+
+
+.mission-card{
+
+    aspect-ratio:1 / 1;
+
+    width:100%;
+
+    padding:15px 10px !important;
+
+    border-radius:20px !important;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    overflow:hidden;
+
+}
+
+
+
+/* ICON */
+
+.mission-card i{
+
+    font-size:32px !important;
+
+    margin-bottom:8px !important;
+
+}
+
+
+
+/* TITLE */
+
+.mission-card h3{
+
+    font-size:15px !important;
+
+    margin-bottom:6px !important;
+
+}
+
+
+
+/* DESCRIPTION */
+
+.mission-card span{
+
+    font-size:10px !important;
+
+    margin-bottom:10px !important;
+
+    line-height:1.3;
+
+}
+
+
+
+/* BUTTON */
+
+.go-btn{
+
+    padding:6px 16px !important;
+
+    font-size:10px !important;
+
+    border-radius:30px !important;
+
+}
+
+
+
+/* KEEP 4 IN ONE ROW */
+
+.mission-grid{
+
+    grid-template-columns:repeat(4,1fr) !important;
+
+}
+/* ==================================================
+   TODAY'S MISSION - FINAL SQUARE CARD FIX
+================================================== */
+
+
+.mission-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px;
+
+}
+
+.mission-card{
+
+    aspect-ratio:1 / 1;
+
+    min-height:190px;
+
+    padding:15px 10px;
+
+    border-radius:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    overflow:hidden;
+
+}
+
+
+
+/* ICON */
+
+.mission-card i{
+
+    font-size:30px;
+
+    margin-bottom:8px;
+
+}
+
+
+
+/* TITLE */
+
+.mission-card h3{
+
+    font-size:14px;
+
+    margin-bottom:6px;
+
+    line-height:1.2;
+
+}
+
+
+
+/* DESCRIPTION */
+
+.mission-card span{
+
+    font-size:11px;
+
+    line-height:1.3;
+
+    margin-bottom:12px;
+
+}
+
+
+
+/* BUTTON */
+
+.go-btn{
+
+    padding:7px 16px;
+
+    font-size:10px;
+
+    white-space:nowrap;
+
+    border-radius:25px;
+
+}
+
+
+
+/* KEEP 4 COLUMNS */
+
+@media(max-width:900px){
+
+    .mission-grid{
+
+        grid-template-columns:repeat(4,1fr);
+
+    }
+
+}
+/* FINAL MISSION GRID ARRANGEMENT */
+
+.mission-grid{
+    display:grid !important;
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:20px !important;
+}
+
+
+.mission-card{
+    aspect-ratio:1 / 1;
+}
+/* ==========================================
+   PLATFORM CARDS - COMPACT SQUARE POLISH
+========================================== */
+
+
+.mission-card{
+
+    aspect-ratio:1 / 1 !important;
+
+    min-height:170px !important;
+
+    padding:15px 10px !important;
+
+    border-radius:20px !important;
+
+}
+
+
+
+/* Icon */
+
+.mission-card i{
+
+    font-size:30px !important;
+
+    margin-bottom:8px !important;
+
+}
+
+
+
+/* Platform name */
+
+.mission-card h3{
+
+    font-size:15px !important;
+
+    margin-bottom:6px !important;
+
+}
+
+
+
+/* Small description */
+
+.mission-card span{
+
+    font-size:10px !important;
+
+    line-height:1.3 !important;
+
+    margin-bottom:12px !important;
+
+}
+
+
+
+/* Button */
+
+.go-btn{
+
+    padding:6px 16px !important;
+
+    font-size:10px !important;
+
+    border-radius:25px !important;
+
+}
+/* ==========================================
+   PLATFORM CARDS - TIGHT COMPACT VERSION
+========================================== */
+
+
+.mission-card{
+
+    aspect-ratio:auto !important;
+
+    min-height:100px !important;
+
+    height:auto !important;
+
+    padding:10px 8px !important;
+
+    border-radius:16px !important;
+
+}
+
+
+/* Icon */
+
+.mission-card i{
+
+    font-size:22px !important;
+
+    margin-bottom:5px !important;
+
+}
+
+
+/* Title */
+
+.mission-card h3{
+
+    font-size:13px !important;
+
+    margin-bottom:4px !important;
+
+}
+
+
+/* Description */
+
+.mission-card span{
+
+    font-size:9px !important;
+
+    margin-bottom:8px !important;
+
+    line-height:1.2 !important;
+
+}
+
+
+/* Button */
+
+.go-btn{
+
+    padding:5px 12px !important;
+
+    font-size:9px !important;
+
+}
+
+/* ==========================================
+   FOOTER SINGLE COMPACT GLASS CARD
+========================================== */
+
+
+.footer{
+
+    background:#0F172A;
+
+    padding:30px 15px 20px;
+
+}
+
+
+
+.footer-container{
+
+    max-width:550px;
+
+    margin:auto;
+
+    display:block;
+
+}
+
+
+
+/* Main footer card */
+
+.footer-brand{
+
+    background:rgba(255,255,255,0.08);
+
+    padding:18px;
+
+    border-radius:18px 18px 0 0;
+
+    text-align:center;
+
+    backdrop-filter:blur(10px);
+
+}
+
+
+
+/* Logo */
+
+.footer-logo{
+
+    width:45px !important;
+
+    height:45px !important;
+
+    margin:0 auto 8px !important;
+
+}
+
+
+
+/* Title */
+
+.footer-brand h2{
+
+    color:#ffffff;
+
+    font-size:18px !important;
+
+    margin-bottom:6px;
+
+}
+
+
+
+/* Description */
+
+.footer-brand p{
+
+    color:#CBD5E1;
+
+    font-size:10px !important;
+
+    line-height:1.5;
+
+}
+
+
+
+/* Connect section */
+
+.footer-social{
+
+    background:rgba(255,255,255,0.08);
+
+    padding:12px 18px 18px;
+
+    text-align:center;
+
+    backdrop-filter:blur(10px);
+
+}
+
+
+
+.footer-social h3{
+
+    color:#ffffff;
+
+    font-size:13px;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.social-icons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:12px;
+
+}
+
+
+
+.social-icons a{
+
+    width:35px;
+
+    height:35px;
+
+    font-size:16px;
+
+}
+
+
+
+/* Copyright */
+
+.footer-bottom{
+
+    max-width:550px;
+
+    margin:0 auto;
+
+    padding:10px 15px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,0.08);
+
+    border-radius:0 0 18px 18px;
+
+    border-top:1px solid rgba(255,255,255,.15);
+
+}
+
+
+
+.footer-bottom p{
+
+    color:#CBD5E1;
+
+    font-size:9px !important;
+
+    margin:4px 0;
+
+}
+
+
+@media(max-width:768px){
+
+    .footer-container{
+
+        width:100%;
+
+    }
+
+}
+/* ==========================================
+   LIVE CAMPAIGN V3
+========================================== */
+
+.status{
+
+    padding:30px 15px;
+
+    background:transparent;
+
+}
+
+
+
+.status-card{
+
+    max-width:850px;
+
+    margin:auto;
+
+    background:rgba(255,255,255,.85);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:20px;
+
+    padding:22px;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+}
+
+
+
+body.dark .status-card{
+
+    background:rgba(30,41,59,.85);
+
+}
+
+
+
+.status-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:15px;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+}
+
+
+
+.status-live{
+
+    background:#DCFCE7;
+
+    color:#15803D;
+
+    padding:8px 14px;
+
+    border-radius:30px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+}
+
+
+
+.status-active{
+
+    background:#22C55E;
+
+    color:#fff;
+
+    padding:8px 16px;
+
+    border-radius:30px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    animation:pulse 2s infinite;
+
+}
+
+
+
+@keyframes pulse{
+
+    0%{
+
+        box-shadow:0 0 0 rgba(34,197,94,.5);
+
+    }
+
+    50%{
+
+        box-shadow:0 0 15px rgba(34,197,94,.45);
+
+    }
+
+    100%{
+
+        box-shadow:0 0 0 rgba(34,197,94,0);
+
+    }
+
+}
+
+
+
+.status-card h2{
+
+    font-size:22px;
+
+    margin-bottom:10px;
+
+    color:var(--text);
+
+}
+
+
+
+.status-card p{
+
+    font-size:12px;
+
+    color:var(--text-light);
+
+    line-height:1.6;
+
+    margin-bottom:18px;
+
+}
+
+
+
+.status-info{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+}
+
+
+
+.status-info span{
+
+    background:#EEF2FF;
+
+    color:#2563EB;
+
+    padding:7px 14px;
+
+    border-radius:20px;
+
+    font-size:11px;
+
+    font-weight:600;
+
+}
+
+
+
+body.dark .status-info span{
+
+    background:#334155;
+
+    color:#fff;
+
+}
+
+/* ==================================================
+   V3 FINAL OVERRIDE — HERO TO COUNTDOWN
+   (Paste at the VERY END of style.css)
+================================================== */
+
+/* ---------- HERO ---------- */
+
+.hero{
+
+    padding-bottom:110px !important;
+
+    position:relative;
+
+}
+
+/* Floating campaign banner */
+
+.status{
+
+    margin-top:-70px !important;
+
+    position:relative;
+
+    z-index:10;
+
+    padding:0 15px 25px !important;
+
+}
+
+.status-card{
+
+    max-width:760px !important;
+
+    margin:auto !important;
+
+    background:rgba(255,255,255,.96) !important;
+
+    border:1px solid #E5E7EB !important;
+
+    border-radius:18px !important;
+
+    padding:14px 18px !important;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08) !important;
+
+}
+
+.status-top{
+
+    display:flex !important;
+
+    justify-content:space-between !important;
+
+    align-items:center !important;
+
+    margin-bottom:8px !important;
+
+    gap:8px;
+
+}
+
+.status-live{
+
+    background:#DCFCE7 !important;
+
+    color:#15803D !important;
+
+    padding:5px 12px !important;
+
+    border-radius:20px !important;
+
+    font-size:10px !important;
+
+    font-weight:700;
+
+}
+
+.status-active{
+
+    background:#22C55E !important;
+
+    color:#fff !important;
+
+    padding:5px 12px !important;
+
+    border-radius:20px !important;
+
+    font-size:10px !important;
+
+    font-weight:700;
+
+}
+
+.status-card h2{
+
+    font-size:18px !important;
+
+    margin:4px 0 6px !important;
+
+}
+
+.status-card p{
+
+    font-size:11px !important;
+
+    margin-bottom:10px !important;
+
+    line-height:1.5 !important;
+
+}
+
+.status-info{
+
+    display:flex !important;
+
+    justify-content:center !important;
+
+    gap:8px !important;
+
+    flex-wrap:wrap;
+
+}
+
+.status-info span{
+
+    background:#EFF6FF !important;
+
+    color:#2563EB !important;
+
+    padding:5px 10px !important;
+
+    border-radius:16px !important;
+
+    font-size:10px !important;
+
+}
+
+/* ---------- COUNTDOWN ---------- */
+
+.countdown{
+
+    padding-top:15px !important;
+
+}
+
+.countdown h2{
+
+    font-size:18px !important;
+
+    margin-bottom:8px !important;
+
+}
+
+.countdown p{
+
+    font-size:11px !important;
+
+    margin-bottom:16px !important;
+
+}
+
+.timer{
+
+    max-width:620px !important;
+
+    margin:auto !important;
+
+    display:grid !important;
+
+    grid-template-columns:repeat(4,1fr) !important;
+
+    gap:10px !important;
+
+}
+
+.time-box{
+
+    padding:10px 5px !important;
+
+    min-height:80px !important;
+
+    border-radius:14px !important;
+
+    display:flex !important;
+
+    flex-direction:column !important;
+
+    justify-content:center !important;
+
+    align-items:center !important;
+
+}
+
+.time-box h3{
+
+    font-size:22px !important;
+
+    margin:0 0 2px !important;
+
+    line-height:1 !important;
+
+}
+
+.time-box span{
+
+    font-size:9px !important;
+
+}
+
+@media(max-width:768px){
+
+    .timer{
+
+        grid-template-columns:repeat(4,1fr) !important;
+
+    }
+
+    .time-box{
+
+        min-height:72px !important;
+
+    }
+
+    .time-box h3{
+
+        font-size:18px !important;
+
+    }
+
+}
+
+/* ==================================================
+   WETrendingTeam V3 PREMIUM
+================================================== */
+
+/* ---------- GENERAL SECTION ---------- */
+
+section{
+
+    position:relative;
+
+    padding:45px 20px !important;
+
+}
+
+/* ---------- PREMIUM TITLE ---------- */
+
+.section-title{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    background:rgba(255,255,255,.75);
+
+    backdrop-filter:blur(16px);
+
+    padding:10px 22px;
+
+    border-radius:50px;
+
+    border:1px solid rgba(255,255,255,.5);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    margin-bottom:15px;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    color:#1E293B;
+
+}
+
+/* ---------- GLASS CARDS ---------- */
+
+.rating-card,
+.time-box,
+.status-card{
+
+    background:rgba(255,255,255,.78) !important;
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.55);
+
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+}
+
+/* ---------- SOFT BACKGROUND ---------- */
+
+.mission{
+
+    background:#F8FAFC !important;
+
+}
+
+.ratings{
+
+    background:#ffffff !important;
+
+}
+
+.events{
+
+    background:#F8FAFC !important;
+
+}
+
+/* ---------- SMOOTH HOVER ---------- */
+
+.mission-card,
+.rating-card{
+
+    transition:.35s;
+
+}
+
+.mission-card:hover,
+.rating-card:hover{
+
+    transform:translateY(-6px);
+
+}
+/* ==========================================
+   PREMIUM SECTION TITLES
+========================================== */
+
+.section-title{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    padding:10px 22px;
+
+    background:rgba(255,255,255,.82);
+
+    backdrop-filter:blur(14px);
+
+    border:1px solid rgba(255,255,255,.6);
+
+    border-radius:50px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    color:#1E293B;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+}
+
+/* ==========================================
+   V3 PREMIUM SECTION BACKGROUND
+========================================== */
+
+.countdown,
+.mission,
+.ratings,
+.events{
+
+    background:rgba(255,255,255,.55) !important;
+
+    backdrop-filter:blur(18px);
+
+}
+
+/* ==========================================
+   PREMIUM GLASS CARDS
+========================================== */
+
+.time-box,
+.rating-card,
+.status-card{
+
+    background:rgba(255,255,255,.82) !important;
+
+    border:1px solid rgba(255,255,255,.65);
+
+    backdrop-filter:blur(18px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+
+}
+
+/* ==========================================
+   SECTION DIVIDER
+========================================== */
+
+section{
+
+    position:relative;
+
+}
+
+section:not(.hero):not(.footer){
+
+    border-top:1px solid rgba(255,255,255,.45);
+
+}
+
+/* ==========================================
+   REMOVE UNDERLINES ONLY
+========================================== */
+
+.mission-card,
+.mission-card *,
+.rating-card,
+.rating-card *{
+
+    text-decoration:none !important;
+
+}
+/* ==========================================
+   COMING SOON CARD OVERRIDE
+========================================== */
+
+.event-card{
+
+    padding:16px 14px !important;
+
+    min-height:130px !important;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.event-card h3{
+
+    font-size:17px !important;
+
+    white-space:nowrap;
+
+    margin-bottom:10px;
+
+}
+
+.event-card p{
+
+    font-size:11px !important;
+
+    white-space:nowrap;
+
+    margin:0;
+
+    color:#64748B;
+
+}
+/* ==========================================
+   RATING CARD TEXT
+========================================== */
+
+.rating-card h3{
+
+    font-size:16px;
+
+    font-weight:700;
+
+    color:#1E293B;
+
+    margin:10px 0 6px;
+
+    white-space:nowrap;
+
+}
+
+.rating-status{
+
+    font-size:11px;
+
+    color:#64748B;
+
+    white-space:nowrap;
+
+    margin:0;
+
+}
+
+.coming-badge{
+
+    display:inline-block;
+
+    background:#FACC15;
+
+    color:#111827;
+
+    padding:5px 12px;
+
+    border-radius:18px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    margin:6px 0;
+
+    white-space:nowrap;
+
+}
+*{
+
+    box-sizing:border-box;
+
+}
+
+html,
+body{
+
+    overflow-x:hidden;
+
+}
+.rating-card{
+
+    padding:14px 12px !important;
+
+    min-height:120px !important;
+
+}
+
+.coming-badge{
+
+    display:inline-block;
+
+    background:#FACC15;
+
+    color:#111827;
+
+    padding:6px 16px;
+
+    border-radius:20px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    margin-top:8px;
+
+    white-space:nowrap;
+
+}
+
+/* ==========================================
+   TRAILER SECTION
+========================================== */
+
+.trailer{
+
+    padding:35px 15px;
+
+    text-align:center;
+
+}
+
+.trailer-card{
+
+    max-width:650px;
+
+    margin:auto;
+
+    background:rgba(255,255,255,.82);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:22px;
+
+    padding:28px 20px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.trailer-card i{
+
+    font-size:60px;
+
+    color:#DC2626;
+
+    margin-bottom:15px;
+
+}
+
+.trailer-card h3{
+
+    font-size:22px;
+
+    margin-bottom:10px;
+
+    color:#1E293B;
+
+}
+
+.trailer-card p{
+
+    font-size:12px;
+
+    color:#64748B;
+
+    margin-bottom:20px;
+
+}
+
+.trailer-btn{
+
+    display:inline-block;
+
+    background:#DC2626;
+
+    color:#fff;
+
+    padding:10px 22px;
+
+    border-radius:30px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.trailer-btn:hover{
+
+    background:#B91C1C;
+
+}
+/* ==========================================
+   EPISODES
+========================================== */
+
+.episodes{
+
+    padding:35px 15px;
+
+    text-align:center;
+
+}
+
+.episode-grid{
+
+    max-width:750px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:14px;
+
+}
+
+.episode-card{
+
+    background:rgba(255,255,255,.82);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:18px;
+
+    padding:18px 15px;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.08);
+
+}
+
+.episode-number{
+
+    font-size:15px;
+
+    font-weight:700;
+
+    color:#1E293B;
+
+    margin-bottom:12px;
+
+}
+
+.episode-btn{
+
+    display:inline-block;
+
+    background:#FACC15;
+
+    color:#111827;
+
+    padding:6px 16px;
+
+    border-radius:20px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+}
+
+@media(max-width:700px){
+
+    .episode-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+        gap:10px;
+
+    }
+
+    .episode-card{
+
+        padding:15px 10px;
+
+    }
+
+    .episode-number{
+
+        font-size:13px;
+
+    }
+
+    .episode-btn{
+
+        font-size:9px;
+
+        padding:5px 12px;
+
+    }
+
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    z-index:1;
+}
+
+.slide{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:opacity 1s ease;
+    z-index:1;
+}
+
+.slide.active{
+    opacity:1;
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.40);
+    z-index:2;
+}
+
+/*============================
+MISSION HUB
+============================*/
+
+.mission-hub{
+
+    padding:55px 5%;
+
+    text-align:center;
+
+}
+
+.hub-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:18px;
+
+    max-width:900px;
+
+    margin:35px auto 0;
+
+}
+
+.hub-card{
+
+    background:#ffffff;
+
+    border-radius:16px;
+
+    padding:12px;
+
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    text-align:center;
+
+    min-height:190px;
+
+    gap:8px;
+
+    transition:.3s;
+
+    overflow:hidden;
+
+}
+
+.hub-card:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.live{
+
+    border:2px solid #22C55E;
+
+}
+
+/* BADGES */
+
+.live-badge,
+.coming-badge{
+
+    display:inline-block;
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    margin-bottom:4px;
+
+}
+
+.live-badge{
+
+    background:#22C55E;
+
+    color:#fff;
+
+}
+
+.coming-badge{
+
+    background:#FFC107;
+
+    color:#111;
+
+}
+
+/* TITLE */
+
+.hub-card h3{
+
+    color:#1F2937 !important;
+
+    font-size:18px;
+
+    line-height:1.2;
+
+    margin:2px 0;
+
+}
+
+/* LOGOS */
+
+.mission-logos{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin:4px 0;
+
+}
+
+.mission-logos img{
+
+    height:34px;
+
+    width:auto;
+
+    object-fit:contain;
+
+}
+
+/* TEXT */
+
+.hub-card p{
+
+    color:#4B5563 !important;
+
+    font-size:12px;
+
+    line-height:1.35;
+
+    margin:0;
+
+}
+
+/* BUTTONS */
+
+.live-btn,
+.disabled-btn{
+
+    width:100%;
+
+    padding:10px;
+
+    border-radius:22px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    text-decoration:none;
+
+    margin-top:auto;
+
+}
+
+.live-btn{
+
+    background:#22C55E;
+
+    color:#fff;
+
+}
+
+.live-btn:hover{
+
+    background:#16A34A;
+
+}
+
+.disabled-btn{
+
+    background:#CBD5E1;
+
+    color:#4B5563;
+
+    border:none;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hub-grid{
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:10px;
+
+}
+
+.hub-card{
+
+    min-height:170px;
+
+    padding:10px;
+
+}
+
+.hub-card h3{
+
+    font-size:14px;
+
+}
+
+.hub-card p{
+
+    font-size:11px;
+
+    line-height:1.3;
+
+}
+
+.mission-logos img{
+
+    height:28px;
+
+}
+
+.live-btn,
+.disabled-btn{
+
+    padding:8px;
+
+    font-size:12px;
+
+}
+
+.live-badge,
+.coming-badge{
+
+    font-size:9px;
+
+    padding:4px 10px;
+
+}
+
+}
+
+
+/*here/*
+/* ==========================
+   COMMUNITY STATS COUNTER
+========================== */
+
+.community-stats {
+
+    max-width: 1000px;
+
+    margin: 25px auto 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+}
+
+
+
+.community-stats div {
+
+    flex: 1;
+
+    background: rgba(255,255,255,0.05);
+
+    border: 1px solid rgba(255,0,60,0.5);
+
+    border-radius: 15px;
+
+    padding: 15px 10px;
+
+    text-align: center;
+
+    backdrop-filter: blur(8px);
+
+}
+
+
+
+.community-stats strong {
+
+    display:block;
+
+    font-size:20px;
+
+    font-weight:700;
+
+}
+
+
+
+.community-stats span {
+
+    font-size:12px;
+
+    opacity:.7;
+
+}
+
+
+
+/* ==========================
+   COMMUNITY HUB
+========================== */
+
+
+.community {
+
+    position:relative;
+
+    z-index:5;
+
+    max-width:1000px;
+
+    margin:80px auto;
+
+    padding:45px 30px 30px;
+
+    border:2px solid #ff003c;
+
+    border-radius:25px;
+
+    overflow:visible;
+
+}
+
+
+
+.community .section-title {
+
+    margin-top:0;
+
+    background:transparent;
+
+}
+
+
+
+.community .section-subtitle {
+
+    margin-top:15px;
+
+}
+
+
+
+/* Empty Discussion */
+
+
+.empty-community p {
+
+    font-size:14px;
+
+    font-style:italic;
+
+    opacity:.65;
+
+    max-width:250px;
+
+    line-height:1.5;
+
+}
+
+
+
+.empty-community span {
+
+    font-size:30px;
+
+}
+
+
+
+/* ==========================
+   COMMUNITY GROWTH
+========================== */
+
+
+.community-growth {
+
+    position:relative;
+
+    z-index:5;
+
+    max-width:1000px;
+
+    margin:50px auto;
+
+    padding:35px 25px 25px;
+
+    border:2px solid #ff003c;
+
+    border-radius:25px;
+
+    overflow:visible;
+
+}
+
+
+
+.community-growth .section-title {
+
+    font-size:22px;
+
+    margin-bottom:8px;
+
+}
+
+
+
+.community-growth .section-subtitle {
+
+    font-size:13px;
+
+    opacity:.7;
+
+}
+
+
+
+.growth-stats {
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+
+
+.growth-card {
+
+    flex:1;
+
+    padding:12px 8px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,0.04);
+
+    border:1px solid rgba(255,255,255,0.15);
+
+    border-radius:10px;
+
+}
+
+
+
+.growth-card strong {
+
+    display:block;
+
+    font-size:18px;
+
+}
+
+
+
+.growth-card span {
+
+    font-size:11px;
+
+    opacity:.7;
+
+}
+
+
+
+/* ==========================
+   SECTION OVERLAP FIX
+========================== */
+
+
+.campaign-container {
+
+    overflow:visible;
+
+}
+
+
+
+@media(max-width:768px){
+
+
+    .community-stats {
+
+        gap:8px;
+
+    }
+
+
+    .community-stats strong {
+
+        font-size:18px;
+
+    }
+
+
+    .growth-card strong {
+
+        font-size:16px;
+
+    }
+
+
+    .growth-card span {
+
+        font-size:10px;
+
+    }
+
+}
+/* ==========================
+   FINAL COMMUNITY BORDER
+========================== */
+
+.community,
+.community-growth {
+
+    margin-top: 120px !important;
+
+    border: 2px solid #ff003c !important;
+
+    border-top: 5px solid #ff003c !important;
+
+    border-radius: 25px;
+
+    position: relative;
+
+    z-index: 10;
+
+}
+
+#loader{
+    display:none !important;
+}
+/* ==========================
+   WATCH PLATFORM POPUP
+========================== */
+
+.platform-popup{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.75);
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:99999;
+
+}
+
+
+
+.popup-box{
+
+    width:90%;
+
+    max-width:400px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    text-align:center;
+
+    position:relative;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.3);
+
+}
+
+
+
+.popup-box h2{
+
+    color:#1E293B;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.popup-box p{
+
+    color:#64748B;
+
+    font-size:14px;
+
+}
+
+
+
+.popup-close{
+
+    position:absolute;
+
+    top:12px;
+
+    right:15px;
+
+    width:35px;
+
+    height:35px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#eee;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+}
+
+
+
+.platform-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+
+
+.platform-item{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    background:#f3f4f6;
+
+    padding:12px 15px;
+
+    border-radius:15px;
+
+    text-decoration:none;
+
+    color:#111827;
+
+    font-weight:600;
+
+}
+
+
+
+.platform-item img{
+
+    width:45px;
+
+    height:45px;
+
+    object-fit:contain;
+
+}
+
+
+
+.platform-item:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ==========================================
+   COMMUNITY COMING SOON
+========================================== */
+
+.community{
+
+    padding:50px 20px;
+
+    text-align:center;
+
+}
+
+.community-coming{
+
+    max-width:750px;
+
+    margin:auto;
+
+    background:rgba(255,255,255,.88);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:28px;
+
+    padding:45px 30px;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.10);
+
+}
+
+.coming-icon{
+
+    font-size:70px;
+
+    margin-bottom:15px;
+
+}
+
+.community-coming h2{
+
+    font-size:32px;
+
+    color:#1E293B;
+
+    margin-bottom:15px;
+
+}
+
+.community-coming p{
+
+    max-width:600px;
+
+    margin:auto;
+
+    color:#64748B;
+
+    line-height:1.8;
+
+    font-size:15px;
+
+}
+
+.coming-features{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:12px;
+
+    margin:35px 0;
+
+}
+
+.coming-features span{
+
+    background:#EEF2FF;
+
+    color:#1E293B;
+
+    padding:10px 18px;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.coming-btn{
+
+    background:linear-gradient(
+        90deg,
+        #2563EB,
+        #DC2626
+    );
+
+    color:white;
+
+    border:none;
+
+    padding:14px 35px;
+
+    border-radius:40px;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    cursor:default;
+
+    box-shadow:0 10px 25px rgba(37,99,235,.30);
+
+}
+
+@media(max-width:768px){
+
+    .community-coming{
+
+        padding:35px 20px;
+
+    }
+
+    .community-coming h2{
+
+        font-size:26px;
+
+    }
+
+    .community-coming p{
+
+        font-size:14px;
+
+    }
+
+    .coming-features{
+
+        gap:10px;
+
+    }
+
+    .coming-features span{
+
+        font-size:12px;
+
+        padding:8px 14px;
+
+    }
+
+}

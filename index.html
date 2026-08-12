@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>WETrendingTeam Hub</title>
+
+<link rel="stylesheet" href="hub.css">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#8b0000">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+
+<body>
+
+<header class="hub-topbar">
+    <button id="hubMenuBtn" class="hub-menu-btn" type="button"
+            aria-label="Open menu" aria-expanded="false">
+        ☰
+    </button>
+
+    <nav id="hubMenu" class="hub-menu" aria-hidden="true">
+        <a href="index.html">🏠 Home</a>
+
+        <div class="management-menu">
+            <button type="button" class="management-toggle" id="managementToggle"
+                    aria-expanded="false">
+                ⚙️ Management <span id="managementArrow">▾</span>
+            </button>
+            <div class="management-submenu" id="managementSubmenu">
+                <a href="control-center.html">⚙️ Control Center &amp; Updates</a>
+                <a href="admin.html">🔔 Admin Login</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+
+<div class="hub-page">
+
+
+    <div class="welcome-box">
+
+
+        <!-- LOGO -->
+
+        <img src="images/logo.png"
+             class="hub-logo"
+             alt="WETrendingTeam Logo">
+
+
+        <!-- WELCOME -->
+
+        <h1>
+            Welcome to WETrendingTeam Hub
+        </h1>
+
+
+        <p>
+            Connect. Trend. Support. Together.
+        </p>
+
+
+
+        <!-- NOTIFICATION BUTTON -->
+
+        <button id="notifyBtn" class="notify-btn">
+
+            🔔 Enable WETrendingTeam Notifications
+
+        </button>
+
+
+
+        <!-- HUB BUTTONS -->
+
+        <div class="hub-buttons">
+
+
+            <!-- CAMPAIGN CENTER -->
+
+            <a href="campaign.html" class="hub-card campaign">
+
+                <span>
+                    🎯
+                </span>
+
+
+                <h2>
+                    Campaign Center
+                </h2>
+
+
+                <p>
+                    Join campaigns, streaming missions & more
+                </p>
+
+
+            </a>
+
+
+
+            <!-- TREND CENTER -->
+
+            <a href="#trendCenterModal" 
+               class="hub-card trend" 
+               id="trendCenterBtn"
+               aria-haspopup="dialog"
+               aria-controls="trendCenterModal">
+
+
+                <span>
+                    📲
+                </span>
+
+
+                <h2>
+                    Trend Center
+                </h2>
+
+
+                <p>
+                    Create. Generate. Amplify
+                </p>
+
+
+                <small>
+                    Open Trend Center
+                </small>
+
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <!-- ==========================================
+         TREND CENTER SELECTOR
+    =========================================== -->
+
+    <div class="trend-center-modal"
+         id="trendCenterModal"
+         aria-hidden="true">
+
+        <div class="trend-center-backdrop" data-close-trend-center></div>
+
+        <section class="trend-center-panel"
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="trendCenterTitle">
+
+            <button type="button"
+                    class="trend-center-close"
+                    id="trendCenterClose"
+                    aria-label="Close Trend Center">
+                ×
+            </button>
+
+            <div class="trend-center-heading">
+                <p class="trend-center-kicker">TREND CENTER</p>
+                <h2 id="trendCenterTitle">Choose a destination</h2>
+            </div>
+
+            <div class="trend-center-options">
+
+                <div class="trend-center-option studio-option">
+
+                    <div>
+                        <h3>Studio</h3>
+                        
+                    </div>
+
+                    <button type="button"
+                            class="trend-center-coming-soon"
+                            disabled>
+                        COMING SOON
+                    </button>
+
+                </div>
+
+                <div class="trend-center-option space-option">
+
+                    <div>
+                        <h3>WETrending SPACE</h3>
+                        <p>Intent Links &amp; Updates</p>
+                    </div>
+
+                    <a class="trend-center-enter"
+                       href="space.html">
+                        ENTER WETrending SPACE
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="hub-footer">
+
+
+        <p>
+            © 2026 WETrendingTeam
+        </p>
+
+
+        <p>
+
+            Designed & Developed by
+
+            <a href="https://x.com/Mr_Queen00"
+               target="_blank">
+
+                @Mr_Queen00
+
+            </a>
+
+        </p>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+<script>
+/* ==========================================
+   TREND CENTER SELECTOR
+========================================== */
+
+(function () {
+
+    const trigger = document.getElementById("trendCenterBtn");
+    const modal = document.getElementById("trendCenterModal");
+    const closeButton = document.getElementById("trendCenterClose");
+
+    if (!trigger || !modal) return;
+
+    function openTrendCenter(event) {
+        if (event) event.preventDefault();
+
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("trend-center-open");
+
+        if (closeButton) {
+            closeButton.focus();
+        }
+    }
+
+    function closeTrendCenter() {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("trend-center-open");
+    }
+
+    trigger.addEventListener("click", openTrendCenter);
+
+    if (closeButton) {
+        closeButton.addEventListener("click", closeTrendCenter);
+    }
+
+    modal.addEventListener("click", function (event) {
+        if (event.target.hasAttribute("data-close-trend-center")) {
+            closeTrendCenter();
+        }
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && modal.classList.contains("open")) {
+            closeTrendCenter();
+        }
+    });
+
+})();
+</script>
+
+<!-- SERVICE WORKER TEMPORARILY DISABLED -->
+
+<script>
+
+console.log(
+    "Service worker disabled for testing"
+);
+
+</script>
+
+
+
+<!-- FIREBASE MESSAGING -->
+
+<script type="module">
+
+import { requestNotificationPermission }
+
+from "./firebase-messaging.js";
+
+
+const notifyBtn = document.getElementById("notifyBtn");
+
+
+if (notifyBtn) {
+
+
+    notifyBtn.addEventListener("click", () => {
+
+
+        requestNotificationPermission();
+
+
+    });
+
+
+}
+
+
+</script>
+
+
+
+<script>
+(function () {
+    const btn = document.getElementById("hubMenuBtn");
+    const menu = document.getElementById("hubMenu");
+
+    if (!btn || !menu) return;
+
+    btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const open = menu.classList.toggle("open");
+        btn.setAttribute("aria-expanded", String(open));
+        menu.setAttribute("aria-hidden", String(!open));
+        btn.textContent = open ? "✕" : "☰";
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!menu.contains(e.target) && !btn.contains(e.target)) {
+            menu.classList.remove("open");
+            btn.setAttribute("aria-expanded", "false");
+            menu.setAttribute("aria-hidden", "true");
+            btn.textContent = "☰";
+        }
+    });
+})();
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("managementToggle");
+    const submenu = document.getElementById("managementSubmenu");
+    const arrow = document.getElementById("managementArrow");
+
+    if (!toggle || !submenu) return;
+
+    toggle.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const isOpen = submenu.classList.contains("open");
+        submenu.classList.toggle("open", !isOpen);
+        toggle.setAttribute("aria-expanded", String(!isOpen));
+        if (arrow) arrow.textContent = isOpen ? "▾" : "▴";
+    });
+
+    submenu.addEventListener("click", function (event) {
+        event.stopPropagation();
+    });
+
+    document.addEventListener("click", function () {
+        submenu.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+        if (arrow) arrow.textContent = "▾";
+    });
+});
+</script>
+
+</body>
+
+</html>

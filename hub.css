@@ -1,0 +1,887 @@
+/* ===========================
+   WETrendingTeam HUB STYLE
+=========================== */
+
+
+* {
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+
+
+body {
+
+    font-family: Arial, sans-serif;
+
+    background:#10101a;
+
+    color:white;
+
+}
+
+
+
+.hub-page {
+
+    min-height:100vh;
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+
+linear-gradient(
+    rgba(5,10,25,0.78),
+    rgba(40,0,20,0.78)
+),
+
+url("images/hub-bg.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+}
+
+
+
+/* ===========================
+   CENTER LOGO
+=========================== */
+
+.hub-logo {
+
+    width:120px;
+
+    height:auto;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+/* WELCOME AREA */
+
+.welcome-box {
+
+    text-align:center;
+
+    max-width:600px;
+
+    padding:20px;
+
+}
+
+
+
+.welcome-box h1 {
+
+    font-size:45px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.welcome-box > p {
+
+    font-size:18px;
+
+    opacity:.85;
+
+    margin-bottom:45px;
+
+}
+
+
+
+
+
+/* BUTTON AREA */
+
+.hub-buttons {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    width: 70%;
+
+    margin: 0 auto;
+
+}
+
+
+
+/* HUB CARDS */
+
+.hub-card {
+
+    display:block;
+
+    text-decoration:none;
+
+    color:white;
+
+    padding:25px;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,0.25);
+
+    transition:.3s;
+
+}
+
+
+
+.hub-card span {
+
+    font-size:35px;
+
+}
+
+
+
+.hub-card h2 {
+
+    margin:10px 0;
+
+    font-size:24px;
+
+}
+
+
+
+.hub-card p {
+
+    opacity:.8;
+
+    font-size:14px;
+
+}
+
+
+
+
+
+/* HOVER */
+
+.hub-card:hover {
+
+    transform:translateY(-5px);
+
+    border-color:#ff003c;
+
+}
+
+
+
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+
+    .hub-logo {
+
+        width:70px;
+
+        top:20px;
+
+        left:20px;
+
+    }
+
+
+
+    .welcome-box h1 {
+
+        font-size:34px;
+
+    }
+
+
+
+    .welcome-box > p {
+
+        font-size:15px;
+
+    }
+
+
+    .hub-card {
+
+        padding:20px;
+
+    }
+
+
+}
+/* ===========================
+   HUB CARD COLOR IDENTITY
+=========================== */
+
+
+.hub-card {
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+/* Trend Center */
+
+.hub-card.trend {
+
+    border:1px solid rgba(255,0,60,0.6);
+
+}
+
+
+
+.hub-card.trend:hover {
+
+    box-shadow:0 0 25px rgba(255,0,60,0.5);
+
+}
+
+
+
+/* Campaign Center */
+
+.hub-card.campaign {
+
+    border:1px solid rgba(80,160,255,0.6);
+
+}
+
+
+
+.hub-card.campaign:hover {
+
+    box-shadow:0 0 25px rgba(80,160,255,0.5);
+
+}
+
+
+
+.hub-card span {
+
+    display:block;
+
+    margin-bottom:8px;
+
+}
+
+/* ===========================
+   HUB FOOTER
+=========================== */
+
+
+.hub-footer {
+
+    position:absolute;
+
+    bottom:20px;
+
+    width:100%;
+
+    text-align:center;
+
+    font-size:12px;
+
+    opacity:.7;
+
+}
+
+
+
+.hub-footer a {
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+}
+
+
+
+.hub-footer a:hover {
+
+    color:#ff003c;
+
+}
+
+/* ===========================
+   HUB FINAL CENTER LAYOUT
+=========================== */
+
+.hub-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+
+    padding:30px 20px;
+
+    transition:background-image 1.5s ease-in-out;
+
+}
+
+
+.welcome-box{
+
+    width:100%;
+
+    max-width:500px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+
+.hub-logo{
+
+    width:100px;
+
+    height:auto;
+
+    margin-bottom:20px;
+
+}
+
+
+.welcome-box h1{
+
+    font-size:38px;
+
+    margin-bottom:12px;
+
+}
+
+
+.welcome-box > p{
+
+    font-size:17px;
+
+    opacity:.85;
+
+    margin-bottom:35px;
+
+}
+
+
+/* ===========================
+   HUB BUTTONS
+=========================== */
+
+.hub-buttons{
+
+    width:85%;
+
+    max-width:360px;
+
+    margin:0 auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+
+/* ===========================
+   HUB ACTION CARDS
+=========================== */
+
+.hub-card{
+
+    display:block;
+
+    width:100%;
+
+    text-decoration:none;
+
+    text-align:center;
+
+    color:#fff;
+
+    background:rgba(0,0,0,.35);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:22px;
+
+    padding:16px 12px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+
+    transition:.3s ease;
+
+}
+
+
+.hub-card.trend{
+
+    border:2px solid rgba(255,0,60,.8);
+
+}
+
+
+.hub-card.campaign{
+
+    border:2px solid rgba(80,160,255,.8);
+
+}
+
+
+.hub-card:hover{
+
+    transform:translateY(-4px);
+
+}
+
+
+.hub-card span{
+
+    font-size:30px;
+
+}
+
+
+.hub-card h2{
+
+    margin:10px 0 5px;
+
+    font-size:21px;
+
+}
+
+
+.hub-card p{
+
+    margin:0;
+
+    font-size:13px;
+
+    opacity:.85;
+
+}
+
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media(max-width:600px){
+
+    .welcome-box h1{
+
+        font-size:30px;
+
+    }
+
+    .welcome-box > p{
+
+        font-size:15px;
+
+    }
+
+    .hub-logo{
+
+        width:85px;
+
+    }
+
+}
+/* ==========================
+   DISABLED TREND CARD
+========================== */
+
+.disabled-card{
+
+    position:relative;
+
+    pointer-events:none;
+
+    cursor:not-allowed;
+
+    opacity:.75;
+
+}
+
+.disabled-card:hover{
+
+    transform:none !important;
+
+    box-shadow:none !important;
+
+}
+
+.soon-text{
+
+    display:block;
+
+    margin-top:8px;
+
+    font-size:10px;
+
+    font-style:italic;
+
+    color:#FFD54A;
+
+    opacity:.9;
+
+    letter-spacing:.3px;
+
+}
+
+/* ==========================================
+   PUBLIC HUB MENU
+========================================== */
+
+.hub-topbar{
+    position:absolute;
+    top:18px;
+    right:20px;
+    z-index:1000;
+}
+
+.hub-menu-btn{
+    width:48px;
+    height:48px;
+    border:0;
+    border-radius:14px;
+    background:rgba(0,0,0,.55);
+    color:#fff;
+    cursor:pointer;
+    font-size:22px;
+}
+
+.hub-menu{
+    display:none;
+    position:absolute;
+    top:58px;
+    right:0;
+    width:235px;
+    padding:10px;
+    border-radius:16px;
+    background:rgba(10,10,20,.96);
+    box-shadow:0 18px 45px rgba(0,0,0,.4);
+}
+
+.hub-menu.open{ display:block; }
+
+.hub-menu a{
+    display:block;
+    padding:13px 12px;
+    border-radius:10px;
+    color:#fff;
+    text-decoration:none;
+}
+
+.hub-menu a:hover{
+    background:rgba(255,255,255,.1);
+}
+
+.hub-menu .admin-menu-link{
+    margin-top:7px;
+    border-top:1px solid rgba(255,255,255,.15);
+    color:#ffd54a;
+}
+
+.hub-menu .menu-disabled{
+    opacity:.55;
+}
+
+.hub-menu small{
+    float:right;
+    color:#ffd54a;
+}
+
+
+/* Management menu */
+.management-menu{position:relative;}
+.management-toggle{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:13px 12px;
+    border:0;
+    border-radius:10px;
+    background:transparent;
+    color:#fff;
+    font:inherit;
+    text-align:left;
+    cursor:pointer;
+}
+.management-toggle:hover{background:rgba(255,255,255,.1);}
+.management-submenu{
+    display:none;
+    padding:0 0 4px 10px;
+}
+.management-submenu.open{display:block;}
+.management-submenu a{font-size:.95rem;}
+
+/* Management menu click fix */
+.management-menu { position: relative; width: 100%; }
+.management-toggle {
+  appearance: none;
+  -webkit-appearance: none;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 12px;
+  margin: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.management-toggle:hover { background: rgba(255,255,255,.10); }
+.management-submenu {
+  display: none !important;
+  width: 100%;
+  padding: 4px 0 6px 10px;
+}
+.management-submenu.open { display: block !important; }
+.management-submenu a {
+  display: block;
+  width: 100%;
+}
+
+
+/* ==========================================
+   TREND CENTER SELECTOR
+========================================== */
+
+.hub-card.trend {
+    cursor: pointer;
+}
+
+.hub-card.trend small {
+    display: block;
+    margin-top: 9px;
+    font-size: 10px;
+    letter-spacing: .4px;
+    opacity: .7;
+}
+
+.trend-center-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.trend-center-modal.open {
+    display: flex;
+}
+
+.trend-center-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.72);
+    backdrop-filter: blur(7px);
+}
+
+.trend-center-panel {
+    position: relative;
+    width: min(92vw, 520px);
+    padding: 28px 22px 22px;
+    border-radius: 24px;
+    background: #111827;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.16);
+    box-shadow: 0 24px 70px rgba(0,0,0,.45);
+    animation: trendCenterIn .22s ease;
+}
+
+.trend-center-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 12px;
+    background: rgba(255,255,255,.08);
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.trend-center-close:hover {
+    background: rgba(255,255,255,.16);
+}
+
+.trend-center-heading {
+    text-align: center;
+    padding: 8px 35px 22px;
+}
+
+.trend-center-kicker {
+    margin: 0 0 7px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    opacity: .65;
+}
+
+.trend-center-heading h2 {
+    margin: 0;
+    font-size: 21px;
+}
+
+.trend-center-options {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.trend-center-option {
+    padding: 18px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,.15);
+    background: rgba(255,255,255,.055);
+}
+
+.trend-center-option h3 {
+    margin: 0 0 5px;
+    font-size: 18px;
+}
+
+.trend-center-option p {
+    margin: 0 0 15px;
+    font-size: 12px;
+    opacity: .7;
+}
+
+.studio-option {
+    border-color: rgba(255,255,255,.10);
+}
+
+.space-option {
+    border-color: rgba(255,0,60,.55);
+}
+
+.trend-center-coming-soon,
+.trend-center-enter {
+    display: block;
+    width: 100%;
+    min-height: 45px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .4px;
+    text-decoration: none;
+}
+
+.trend-center-coming-soon {
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.06);
+    color: rgba(255,255,255,.5);
+    cursor: not-allowed;
+}
+
+.trend-center-enter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: linear-gradient(135deg, #ef4444, #2563eb);
+    color: #fff;
+    cursor: pointer;
+    transition: transform .2s ease, opacity .2s ease;
+}
+
+.trend-center-enter:hover {
+    transform: translateY(-2px);
+    opacity: .92;
+}
+
+body.trend-center-open {
+    overflow: hidden;
+}
+
+@keyframes trendCenterIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 600px) {
+    .trend-center-panel {
+        padding: 25px 16px 17px;
+        border-radius: 20px;
+    }
+
+    .trend-center-heading {
+        padding-bottom: 18px;
+    }
+
+    .trend-center-option {
+        padding: 16px;
+    }
+}

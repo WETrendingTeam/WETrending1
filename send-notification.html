@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>WETrendingTeam - Send Notification</title>
+
+<link rel="stylesheet"
+      href="send-notification.css">
+
+</head>
+
+<body>
+
+<div class="notification-container">
+
+    <div class="notification-card">
+
+        <h1>🔔 Send Notification</h1>
+
+        <p>
+            Send an alert to users who have enabled
+            WETrendingTeam notifications.
+        </p>
+
+
+        <!-- Notification Audience -->
+
+        <label for="notificationAudience">
+            Notification Audience
+        </label>
+
+        <select
+            id="notificationAudience"
+        >
+            <option value="team">WETrendingTeam</option>
+            <option value="space">WETrending SPACE</option>
+        </select>
+
+
+        <!-- Notification Title -->
+
+        <label for="notificationTitle">
+            Notification Title
+        </label>
+
+        <input
+            type="text"
+            id="notificationTitle"
+            placeholder="Enter notification title"
+            maxlength="100"
+        >
+
+
+        <!-- Notification Message -->
+
+        <label for="notificationMessage">
+            Notification Message
+        </label>
+
+        <textarea
+            id="notificationMessage"
+            placeholder="Write your notification..."
+            maxlength="500"
+            rows="6"
+        ></textarea>
+
+
+        <!-- Destination URL -->
+
+        <label for="notificationUrl">
+            Destination URL
+        </label>
+
+        <input
+            type="url"
+            id="notificationUrl"
+            placeholder="For SPACE: paste the exact Intent Link"
+        >
+
+        <small id="notificationUrlHelp">
+            SPACE notifications can open the exact Intent Link when tapped.
+        </small>
+
+
+        <!-- Send Button -->
+
+        <button
+            id="sendNotificationBtn"
+            type="button"
+        >
+            🔔 Send to All Subscribers
+        </button>
+
+
+        <!-- Status -->
+
+        <div
+            id="sendStatus"
+            class="send-status"
+        ></div>
+
+
+        <br>
+
+
+        <!-- Back -->
+
+        <a href="admin-dashboard.html">
+
+            <button
+                type="button"
+                class="back-btn"
+            >
+                ← Back to Admin Panel
+            </button>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<script
+    type="module"
+    src="send-notification.js">
+</script>
+
+</body>
+
+</html>

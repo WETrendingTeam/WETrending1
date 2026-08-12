@@ -1,0 +1,31 @@
+WETrending SPACE INTEGRATION - TEST BUILD
+
+Architecture:
+- WETrending SPACE now exists inside the WETrendingTeam website as space.html.
+- The Intent Link Google Sheet remains outside the website and remains the source of links.
+- Link creation/editing is NOT moved into WETrendingTeam.
+- Notifications are controlled from the existing WETrendingTeam admin notification page.
+- WETrending SPACE uses the existing WETrendingTeam Firebase/FCM infrastructure.
+- No second Firebase/FCM system is created.
+
+Audience:
+- WETrendingTeam subscribers can be targeted as the Team audience.
+- WETrending SPACE subscribers are registered in the same fcmTokens collection
+  using subscriptions.space = true.
+- Team subscribers use subscriptions.team = true.
+- A notification sent to SPACE requires the exact destination Intent Link URL.
+
+Flow:
+Separate Link Control System
+    -> Google Sheet
+    -> WETrending SPACE (inside WETrendingTeam website)
+    -> Admin sends SPACE notification from WETrendingTeam
+    -> Existing FCM
+    -> SPACE subscribers
+    -> Tap notification
+    -> Exact Intent Link
+
+Important:
+- Deploy functions before testing server-side notification delivery.
+- Existing Firebase/FCM configuration is retained.
+- Do not deploy a second SPACE Firebase project.

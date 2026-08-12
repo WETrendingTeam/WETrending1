@@ -1,0 +1,15 @@
+Control Center terminology was updated to 'Control Center'.
+
+Authentication-related files found in this build:
+A-and-A-main/space-fcm.js
+A-and-A-main/firebase-messaging.js
+A-and-A-main/dashboard.js
+A-and-A-main/admin-dashboard.js
+A-and-A-main/control-center.js
+A-and-A-main/admin.js
+A-and-A-main/admin-login.js
+A-and-A-main/send-notification.js
+A-and-A-main/notifications.js
+A-and-A-main/functions/index.js
+
+Note: Firebase authentication requires the deployed site's Firebase configuration and authorized-domain settings. The source files were preserved; no credentials were changed.

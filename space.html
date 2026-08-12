@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html lang="es" style="height: 100%;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WETrending - SPACE</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- OPTIMIZACIÓN DE VELOCIDAD: Pre-conectar a Google Sheets para cargas más rápidas -->
+    <link rel="preconnect" href="https://docs.google.com">
+    <link rel="dns-prefetch" href="https://docs.google.com">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <style>
+        :root {
+            /* Light Theme */
+            --bg-color: #f1f5f9;
+            --surface-color: #ffffff;
+            --text-main: #0f172a; 
+            --text-muted: #475569;
+            --title-color: #7c3aed;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --accent-red: #e11d48;
+            --chip-bg: #e2e8f0;
+            --chip-text: #334155;
+            --border-color: #cbd5e1;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 8px 16px rgba(0,0,0,0.08);
+            --success: #10b981;
+            --radius-md: 12px;
+            --radius-pill: 99px;
+        }
+
+        body.dark-mode {
+            /* Dark Theme */
+            --bg-color: #0b1120;
+            --surface-color: #162032;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --title-color: #a78bfa; 
+            --primary: #3b82f6; 
+            --primary-hover: #60a5fa;
+            --accent-red: #f43f5e; 
+            --chip-bg: #1e293b;
+            --chip-text: #cbd5e1;
+            --border-color: #27354f;
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.3);
+            --shadow-md: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.05s ease, color 0.05s ease;
+        }
+
+        /* HEADER & TOP BAR */
+        header {
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--surface-color);
+            box-shadow: var(--shadow-sm);
+            flex-wrap: nowrap;
+            gap: 10px;
+        }
+
+        .logo-title {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--title-color), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+
+        /* ARTIST NAV (HEADER) */
+        .header-controls {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            gap: 15px;
+            margin-top: 8px; /* Bajarlo un poco hacia el borde */
+        }
+
+        .artist-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .artist-btn {
+            background: transparent;
+            border: 1px solid transparent; /* Sin borde visible */
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 6px 12px;
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        
+        .artist-btn:hover { 
+            color: var(--accent-red);
+            background: rgba(225, 29, 72, 0.05);
+        }
+        
+        .artist-btn.active { 
+            background: var(--accent-red); /* Color rojo al estar activo */
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(225, 29, 72, 0.3);
+        }
+
+        .dark-mode-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .dark-mode-toggle:hover { 
+            color: var(--primary); 
+            transform: scale(1.1);
+        }
+
+        /* MAIN NAVIGATION (ONE LINE STRICT) */
+        .main-nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 10px 15px 10px;
+            flex-wrap: wrap;
+            width: 100%;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .main-nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 8px 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.2s, background-color 0.2s;
+            position: relative;
+            flex: 1 1 auto;
+            text-align: center;
+            border-radius: 8px;
+        }
+        
+        .main-nav-btn:hover {
+            background: rgba(0,0,0,0.03);
+        }
+        body.dark-mode .main-nav-btn:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        .main-nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-red); 
+            transition: width 0.3s;
+        }
+        .main-nav-btn.active { color: var(--text-main); }
+        .main-nav-btn.active::after { width: 80%; }
+
+        /* APP VIEWS */
+        .app-view {
+            display: none;
+            flex-grow: 1;
+            padding: 15px 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .app-view.active { display: block; }
+
+        /* SIDEBAR LAYOUT FOR POSTS & OWN PHRASES */
+        .app-view-container {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            width: 100%;
+            align-items: flex-start;
+        }
+        .sidebar-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 115px; /* Reducido de 140px para aprovechar más espacio */
+            flex-shrink: 0;
+            border-right: 1px solid var(--border-color);
+            padding-right: 10px;
+        }
+        .sidebar-actions .flat-btn {
+            justify-content: flex-start;
+            padding: 8px 10px; /* Padding ajustado al nuevo ancho */
+            width: 100%;
+            text-align: left;
+            font-size: 0.8rem; /* Letra ligeramente menor para encajar perfecto */
+        }
+        
+        .sidebar-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 2px 0;
+            width: 100%;
+            opacity: 0.5;
+        }
+        .main-content-area {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            width: calc(100% - 130px); /* Ajustado al nuevo ancho (115px + 15px gap = 130px) */
+        }
+
+        /* FLAT ACTION BUTTONS & CATEGORIES */
+        .action-bar, .category-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 0;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        
+        .flat-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            padding: 8px 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: color 0.2s, transform 0.1s, background-color 0.2s;
+            flex: 1 1 auto;
+            border-radius: 8px;
+        }
+        .flat-btn:hover { 
+            color: var(--text-main); 
+            transform: translateY(-1px);
+            background: rgba(0,0,0,0.03);
+        }
+        body.dark-mode .flat-btn:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        .flat-btn.active { 
+            color: var(--primary); 
+            background: rgba(37, 99, 235, 0.05);
+        }
+        
+        /* JERARQUÍA EN BARRA LATERAL */
+        .sidebar-actions .flat-btn {
+            border: 1px solid transparent;
+        }
+        .sidebar-actions .flat-btn.active {
+            background: var(--surface-color);
+            border-color: var(--border-color);
+            box-shadow: var(--shadow-sm);
+            font-weight: 700;
+        }
+        body.dark-mode .sidebar-actions .flat-btn.active {
+            background: var(--chip-bg);
+        }
+
+        .flat-btn-danger { color: var(--text-muted); }
+        .flat-btn-danger i { color: var(--accent-red); }
+        .flat-btn-danger:hover { 
+            color: var(--accent-red); 
+            background: rgba(225, 29, 72, 0.05);
+        }
+        
+        /* CATEGORIES (Pills) */
+        .category-chip {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 8px 12px;
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            flex: 1 1 auto;
+            text-align: center;
+            min-width: 60px;
+        }
+        .category-chip:hover { 
+            background: rgba(37, 99, 235, 0.05);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+        .category-chip.active {
+            background: linear-gradient(135deg, var(--primary), var(--title-color));
+            color: #ffffff !important;
+            border-color: transparent;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+        }
+
+        /* ESTILOS PARA BOTONES BLOQUEADOS (ESTÁTICOS) */
+        .category-chip.locked-btn, .flat-btn.locked-btn {
+            opacity: 0.5 !important;
+            cursor: not-allowed !important;
+            pointer-events: none !important;
+        }
+        .category-chip.locked-btn {
+            background: var(--chip-bg) !important;
+            color: var(--text-muted) !important;
+            border: 1px solid var(--border-color) !important;
+            box-shadow: none !important;
+        }
+
+        /* CONTENT GRIDS */
+        .content-grid, .intent-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+            width: 100%;
+        }
+        
+        .card-box {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            display: block; /* Cambiado a block para aprovechar espacio horizontal */
+            min-height: 85px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        .intent-grid .card-box {
+            border-left: 4px solid var(--accent-red);
+        }
+        
+        .card-box:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--title-color);
+        }
+        
+        .card-box strong {
+            font-size: 0.75rem;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin-right: 8px;
+            margin-bottom: 2px;
+            display: inline-block;
+            vertical-align: middle;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        body.dark-mode .card-box strong {
+            background: rgba(59, 130, 246, 0.2);
+        }
+        
+        .intent-grid .card-box strong {
+            background: rgba(225, 29, 72, 0.1);
+            color: var(--accent-red);
+        }
+        body.dark-mode .intent-grid .card-box strong {
+            background: rgba(244, 63, 94, 0.2);
+        }
+
+        /* FALLBACK VIEW CSS (QUOTE / REPLY) */
+        .fallback-split-view {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            width: 100%;
+            align-items: flex-start;
+            margin-top: 15px;
+        }
+        
+        .fallback-col {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+        .fallback-header {
+            text-align: center;
+            font-weight: 800;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        /* PANELS (Tags, Emojis) */
+        .config-panel {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 15px;
+            margin-bottom: 15px;
+            display: none;
+            box-shadow: var(--shadow-sm);
+        }
+        .config-panel.active { display: block; }
+        
+        .config-panel h4 {
+            background: linear-gradient(90deg, var(--title-color), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+        
+        .config-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-main);
+            font-family: inherit;
+            margin-bottom: 10px;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        /* LOADING & ERROR */
+        .status-msg {
+            text-align: center;
+            padding: 30px;
+            color: var(--primary);
+            font-weight: 500;
+            grid-column: 1 / -1;
+        }
+
+        /* LOCK SCREEN OVERLAY */
+        #lock-screen-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--bg-color);
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .lock-logo-container {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            margin-bottom: 30px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Efecto estático: Marco con gradiente y sombra elegante */
+            background: linear-gradient(135deg, var(--title-color), var(--primary));
+            padding: 4px; /* Grosor del anillo de color */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15), 
+                        0 0 0 10px rgba(37, 99, 235, 0.05); /* Halo suave exterior estático */
+        }
+        
+        #lock-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            z-index: 2;
+            background: var(--surface-color);
+            border: 4px solid var(--surface-color); /* Anillo de separación interior */
+        }
+
+        /* MODALS */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .modal-content {
+            background: var(--surface-color);
+            padding: 25px;
+            border-radius: var(--radius-md);
+            width: 90%;
+            max-width: 400px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        #alert-modal .modal-content {
+            max-width: 320px;
+            padding: 25px 20px;
+            border-top: 4px solid var(--primary);
+        }
+
+        #alert-msg {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+
+        @media (max-width: 768px) {
+            header { 
+                padding: 10px 8px; 
+            }
+            .logo-title { 
+                font-size: 1.15rem; 
+            }
+            .header-controls {
+                gap: 5px;
+            }
+            .artist-nav {
+                gap: 4px;
+            }
+            .artist-btn {
+                font-size: 0.65rem;
+                padding: 4px 6px;
+                letter-spacing: -0.2px;
+            }
+            
+            .main-nav-bar { padding: 8px 5px; gap: 5px; }
+            .main-nav-btn { font-size: 0.75rem; padding: 6px 4px; }
+            
+            .action-bar, .category-bar { gap: 6px; padding: 5px 0; }
+            .flat-btn { font-size: 0.75rem; padding: 6px 4px; }
+            
+            .category-chip { 
+                font-size: 0.65rem; 
+                padding: 6px 4px; 
+                border-radius: 8px;
+                min-width: 50px;
+            }
+            .card-box {
+                padding: 10px;
+                font-size: 0.8rem;
+                min-height: 80px;
+            }
+            .content-grid, .intent-grid { gap: 8px; }
+            
+            /* Ajustes Sidebar Móvil */
+            .app-view-container { gap: 10px; }
+            .sidebar-actions { width: 100px; gap: 6px; border-right: 1px solid var(--border-color); padding-right: 5px; }
+            .sidebar-actions .flat-btn { font-size: 0.65rem; padding: 8px 6px; gap: 6px; justify-content: flex-start; }
+            .main-content-area { flex: 1 1 auto; width: auto; min-width: 0; }
+            
+            /* SUGERENCIA: 1 sola columna en móviles para que las frases no se vean apretadas */
+            .content-grid, .intent-grid { 
+                grid-template-columns: 1fr; 
+                gap: 10px; 
+            }
+            
+            /* FIX: DIRECT INTENT Link en 2 columnas en móviles con estilos compactos */
+            .fallback-split-view {
+                flex-direction: row;
+                gap: 6px;
+            }
+            .fallback-col {
+                gap: 6px;
+            }
+            .fallback-header {
+                font-size: 0.75rem;
+                margin-bottom: 2px;
+            }
+            .fallback-split-view .card-box {
+                padding: 6px 4px;
+                min-height: 50px;
+            }
+            .fallback-split-view .card-box strong {
+                font-size: 0.6rem;
+                padding: 2px 4px;
+                margin-right: 0;
+                margin-bottom: 4px;
+                display: block;
+                text-align: center;
+            }
+            .fallback-split-view .card-box span {
+                font-size: 0.65rem;
+                display: block;
+                text-align: center;
+                line-height: 1.1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOCK SCREEN OVERLAY -->
+    <div id="lock-screen-overlay" style="display: none;">
+        <div class="lock-logo-container">
+            <img id="lock-logo" src="" alt="Locked" style="display: none;">
+        </div>
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; background: linear-gradient(135deg, var(--title-color), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; font-weight: 800;">See you soon!</h1>
+        <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 450px; line-height: 1.6;">The website is currently locked. We are preparing everything for the next event, please check back later.</p>
+    </div>
+
+    <header>
+        <div class="logo-title">WETrending</div>
+        <div class="header-controls">
+            <div class="artist-nav" id="artist-nav-container">
+                <button class="artist-btn active" data-artist="WilliamEst">WilliamEst</button>
+                <button class="artist-btn" data-artist="WILLIAM">WILLIAM</button>
+                <button class="artist-btn" data-artist="EST">EST</button>
+                <button class="artist-btn" data-artist="WESLEY">WESLEY</button>
+            </div>
+            <button id="theme-toggle" class="dark-mode-toggle" title="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="main-nav-bar">
+        <button class="main-nav-btn active" data-target="posts-view">POSTS</button>
+        <button class="main-nav-btn" data-target="intent-view">DIRECT INTENT LINK 🔗</button>
+        <button class="main-nav-btn" data-target="own-phrases-view">YOUR OWN PHRASES ✂️</button>
+    </div>
+
+    <!-- POSTS VIEW -->
+    <section id="posts-view" class="app-view active">
+        <div class="app-view-container">
+            <div class="sidebar-actions">
+                <!-- Modes -->
+                <button class="flat-btn" id="mode-intent-btn" style="color: #ec4899;"><i class="fa-solid fa-bolt"></i> Intent Link</button>
+                <button class="flat-btn" id="mode-copy-btn" style="color: #0284c7;"><i class="fa-regular fa-copy"></i> Copy</button>
+                <button class="flat-btn active" id="mode-tweet-btn" style="color: #1da1f2;"><i class="fa-brands fa-twitter"></i> Tweet</button>
+                <button class="flat-btn" id="mode-quote-btn" style="color: #8b5cf6;"><i class="fa-solid fa-quote-left"></i> Quote</button>
+                <button class="flat-btn" id="mode-reply-btn" style="color: #10b981;"><i class="fa-solid fa-reply"></i> Reply</button>
+                
+                <div class="sidebar-divider"></div>
+                
+                <!-- Panels -->
+                <button class="flat-btn" id="toggle-tags-btn" style="color: #f59e0b;"><i class="fa-solid fa-hashtag"></i> Tags</button>
+                <button class="flat-btn" id="toggle-emojis-btn" style="color: #eab308;"><i class="fa-regular fa-face-smile"></i> Emojis</button>
+                
+                <div class="sidebar-divider"></div>
+                
+                <!-- Utilities -->
+                <button class="flat-btn" id="update-posts-btn" style="color: #0ea5e9;"><i class="fa-solid fa-rotate-right"></i> Update</button>
+                <button class="flat-btn flat-btn-danger" id="reset-posts-btn"><i class="fa-solid fa-circle-xmark"></i> Reset Posts</button>
+                <button class="flat-btn flat-btn-danger" id="hard-reset-btn"><i class="fa-solid fa-trash-can"></i> Reset All</button>
+            </div>
+
+            <div class="main-content-area">
+                <div class="config-panel" id="tags-panel">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <h4 style="color:var(--primary); font-size:0.9rem;">🏷️ Context & Tags</h4>
+                        <div>
+                            <button class="flat-btn" id="save-tags-btn"><i class="fa-solid fa-floppy-disk"></i></button>
+                            <button class="flat-btn" id="clear-tags-btn"><i class="fa-solid fa-eraser"></i></button>
+                            <button class="flat-btn" id="close-tags-btn" style="color: var(--accent-red);"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                    </div>
+                    <textarea id="tags-input" class="config-input" placeholder="e.g. WILLIAMEST MAGIC VIBES&#10;#WilliamEst"></textarea>
+                </div>
+
+                <div class="config-panel" id="emojis-panel">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <h4 style="color:var(--primary); font-size:0.9rem;">✨ Distribute Emojis</h4>
+                        <div>
+                            <button class="flat-btn" id="save-emojis-btn"><i class="fa-solid fa-floppy-disk"></i></button>
+                            <button class="flat-btn" id="clear-emojis-btn"><i class="fa-solid fa-eraser"></i></button>
+                            <button class="flat-btn" id="close-emojis-btn" style="color: var(--accent-red);"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                    </div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:8px;">Enter emojis (no spaces needed).</p>
+                    <input type="text" id="emojis-input" class="config-input" style="min-height: auto;" placeholder="🎸🦈✨💙">
+                </div>
+
+                <div class="category-bar" id="category-buttons-container"></div>
+                <div id="posts-title" style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); margin-top: 10px;"></div>
+                <div id="posts-container" class="content-grid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIRECT INTENT VIEW -->
+    <section id="intent-view" class="app-view">
+        <div class="action-bar" style="justify-content: flex-start; margin-bottom: 15px; background: var(--surface-color); padding: 8px 15px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-right: 15px; display: flex; align-items: center; gap: 8px; text-transform: uppercase;">
+                <i class="fa-solid fa-user-shield" style="color: var(--primary);"></i> Official Admin Links
+            </div>
+            <div style="display:flex; align-items:center; gap:5px;">
+                <button class="flat-btn" id="update-intent-btn" style="color:var(--primary);" title="Update Links"><i class="fa-solid fa-rotate-right"></i></button>
+                <button class="flat-btn" id="restore-intent-btn" style="color:var(--accent-red);" title="Restore Used Links"><i class="fa-solid fa-rotate-left"></i></button>
+                <button class="flat-btn" id="notify-btn" style="color:var(--text-muted);" title="Turn On Notifications"><i class="fa-solid fa-bell-slash"></i></button>
+            </div>
+        </div>
+        <div id="intent-loading" class="status-msg">Loading intent links...</div>
+        <div id="intent-container" class="intent-grid"></div>
+    </section>
+
+    <!-- YOUR OWN PHRASES VIEW (EASY COPY PASTE) -->
+    <section id="own-phrases-view" class="app-view">
+        <div class="app-view-container">
+            <div class="sidebar-actions">
+                <!-- Modes -->
+                <button class="flat-btn" id="own-mode-copy-btn" style="color: #0284c7;"><i class="fa-regular fa-copy"></i> Copy</button>
+                <button class="flat-btn active" id="own-mode-tweet-btn" style="color: #1da1f2;"><i class="fa-brands fa-twitter"></i> Tweet</button>
+                <button class="flat-btn" id="own-mode-quote-btn" style="color: #8b5cf6;"><i class="fa-solid fa-quote-left"></i> Quote</button>
+                <button class="flat-btn" id="own-mode-reply-btn" style="color: #10b981;"><i class="fa-solid fa-reply"></i> Reply</button>
+                
+                <div class="sidebar-divider"></div>
+                
+                <!-- Tools -->
+                <button class="flat-btn" id="toggle-own-tags-btn" style="color: #f59e0b;"><i class="fa-solid fa-hashtag"></i> Tags</button>
+                <button class="flat-btn" id="add-own-phrases-btn" style="color: var(--success);"><i class="fa-solid fa-plus"></i> Add</button>
+                <button class="flat-btn" id="ai-generate-btn" style="color: #ec4899;"><i class="fa-solid fa-robot"></i> AI Gen</button>
+                
+                <div class="sidebar-divider"></div>
+                
+                <!-- Utilities -->
+                <button class="flat-btn" id="restore-own-posts-btn" style="color: #0ea5e9;"><i class="fa-solid fa-rotate-left"></i> Restore</button>
+                <button class="flat-btn flat-btn-danger" id="reset-own-all-btn"><i class="fa-solid fa-trash"></i> Reset All</button>
+            </div>
+
+            <div class="main-content-area">
+                <div class="config-panel" id="own-tags-panel">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <h4 style="color:var(--primary); font-size:0.9rem;">🏷️ Settings keyword | hashtag</h4>
+                        <div>
+                            <button class="flat-btn" id="save-own-tags-btn"><i class="fa-solid fa-floppy-disk"></i></button>
+                            <button class="flat-btn" id="clear-own-tags-btn"><i class="fa-solid fa-eraser"></i></button>
+                            <button class="flat-btn" id="close-own-tags-btn" style="color: var(--accent-red);"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                    </div>
+                    <textarea id="own-tags-input" class="config-input" placeholder="e.g. #EasyCopyPaste&#10;#QuickTrend"></textarea>
+                </div>
+
+                <div class="category-bar">
+                    <button class="category-chip active" id="own-set1-btn" data-set="SET1">SET 1</button>
+                    <button class="category-chip" id="own-set2-btn" data-set="SET2">SET 2</button>
+                    <button class="category-chip" id="own-set3-btn" data-set="SET3">SET 3</button>
+                </div>
+
+                <div id="own-posts-title" style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); margin-top: 10px;">SET 1 (0/0)</div>
+                <div id="own-posts-container" class="content-grid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODALS -->
+    <div class="modal-overlay" id="url-modal">
+        <div class="modal-content">
+            <h3 id="url-modal-title" style="margin-bottom: 10px; color: var(--primary);">Configure URL</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Paste the Twitter/X URL to quote or reply to.</p>
+            <input type="text" id="url-modal-input" class="config-input" style="min-height:auto;" placeholder="https://x.com/user/status/123...">
+            <div style="display:flex; justify-content:flex-end; gap:10px;">
+                <button class="flat-btn" id="url-modal-clear" style="color:var(--accent-red); margin-right:auto;"><i class="fa-solid fa-trash"></i> Clear</button>
+                <button class="flat-btn" id="url-modal-cancel">Cancel</button>
+                <button class="flat-btn" id="url-modal-save" style="color:var(--primary);">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="alert-modal">
+        <div class="modal-content" style="text-align: center;">
+            <p id="alert-msg" style="margin-bottom: 20px; font-weight: 500;"></p>
+            <button class="flat-btn" id="alert-ok-btn" style="color:white; background:var(--primary); padding:8px 24px; border-radius:8px;">OK</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="confirm-modal">
+        <div class="modal-content" style="text-align: center;">
+            <p id="confirm-msg" style="margin-bottom: 20px; font-weight: 500;"></p>
+            <div style="display:flex; justify-content:center; gap:10px;">
+                <button class="flat-btn" id="confirm-cancel-btn">Cancel</button>
+                <button class="flat-btn" id="confirm-ok-btn" style="color:white; background:var(--accent-red); padding:8px 24px; border-radius:8px;">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Generate Modal -->
+    <div class="modal-overlay" id="ai-modal">
+        <div class="modal-content">
+            <h3 style="margin-top: 0; color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🤖 AI Phrase Generator</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Select an AI service to generate phrases. This will open in a new tab.</p>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+                <button class="flat-btn ai-service-btn" data-url="https://chat.openai.com/" style="background: linear-gradient(90deg, #10a37f, #1a73e8); color: white; justify-content:center;">ChatGPT ↗️</button>
+                <button class="flat-btn ai-service-btn" data-url="https://gemini.google.com/" style="background: linear-gradient(90deg, #8e24aa, #4285f4); color: white; justify-content:center;">Gemini ↗️</button>
+                <button class="flat-btn ai-service-btn" data-url="https://claude.ai/" style="background: linear-gradient(90deg, #d97706, #7c3aed); color: white; justify-content:center;">Claude ↗️</button>
+            </div>
+            <button class="flat-btn" id="ai-exit-btn" style="width: 100%; justify-content:center; border:1px solid var(--border-color);">Close</button>
+        </div>
+    </div>
+
+    <!-- Add Phrases Modal -->
+    <div class="modal-overlay" id="add-phrases-modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <h3 style="margin-bottom: 10px; color: var(--primary);">📝 Add Phrases</h3>
+            <div style="background-color: var(--chip-bg); padding: 10px; border-radius: 8px; margin-bottom: 15px; font-size: 0.85rem;">
+                <strong>Selected Set: </strong><span id="add-phrases-set-label" style="font-weight: 700;">SET 1</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+                Paste or type phrases (up to 1000). Each line will be a separate phrase.<br>
+                <em>Note: Bullets like "1." or "-" will be automatically removed.</em>
+            </p>
+            <textarea id="add-phrases-input" class="config-input" style="height: 200px;" placeholder="1. House&#10;2. Dog&#10;...or simply:&#10;House&#10;Dog"></textarea>
+            <div style="display:flex; justify-content:space-between; gap:10px;">
+                <button class="flat-btn" id="clear-add-phrases-btn"><i class="fa-solid fa-eraser"></i> Clear Text</button>
+                <div style="display:flex; gap:10px;">
+                    <button class="flat-btn" id="cancel-add-phrases-btn">Cancel</button>
+                    <button class="flat-btn" id="save-add-phrases-btn" style="color:white; background:var(--primary); padding:8px 16px; border-radius:8px;"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* === STATE & VARIABLES === */
+        let currentArtist = localStorage.getItem('selectedArtist') || 'WilliamEst';
+        
+        let currentMode = 'tweet';
+        let currentCategory = 'SET1';
+        let postUrls = JSON.parse(localStorage.getItem('postUrls') || '{"quote":{}, "reply":{}}');
+        
+        // Own Phrases State (Easy Copy Paste)
+        let currentOwnMode = localStorage.getItem('currentOwnMode') || 'tweet';
+        let currentOwnCategory = 'SET1';
+        let postOwnUrls = JSON.parse(localStorage.getItem('postOwnUrls') || '{"quote":{}, "reply":{}}');
+        
+        let isNotifying = false;
+        let notificationInterval = null;
+        let emojiCycleIndex = 0;
+
+        const CONFIG = {
+            WilliamEst: { sheetId: '1PE7lOFidR3E1E_3OdGM5DGH0Lz151dpVwQiWiDntzZs', gidPost: '1415284347', gidIntent: '1415284347' },
+            WILLIAM: { sheetId: '1PE7lOFidR3E1E_3OdGM5DGH0Lz151dpVwQiWiDntzZs', gidPost: '1545239618', gidIntent: '1545239618' },
+            EST: { sheetId: '1PE7lOFidR3E1E_3OdGM5DGH0Lz151dpVwQiWiDntzZs', gidPost: '1081229423', gidIntent: '1081229423' },
+            WESLEY: { sheetId: '1PE7lOFidR3E1E_3OdGM5DGH0Lz151dpVwQiWiDntzZs', gidPost: '2045622155', gidIntent: '2045622155' }
+        };
+
+        const CATEGORIES = {
+            'SET1': { col: 'A', name: '15 MIN' },
+            'EVENT': { col: 'F', name: '1000+ PHRASES' },
+            'KPOP': { col: 'A', name: 'KPOP IDOL', fallback: true },
+            'TPOP': { col: 'C', name: 'T-POP GROUP', fallback: true },
+            'ACTOR': { col: 'E', name: 'BL ACTOR', fallback: true },
+            'ACTRESS': { col: 'G', name: 'ACTRESS GL', fallback: true },
+            'MOVIES': { col: 'I', name: 'MOVIES', fallback: true },
+            'HEROES': { col: 'K', name: 'SUPER HEROES', fallback: true },
+            'COUNTRIES': { col: 'M', name: 'COUNTRIES', fallback: true },
+            'OTHER': { col: 'O', name: 'OTHER', fallback: true }
+        };
+
+        let POST_DATA = {};
+        let INTENT_DATA = { mode: 'fallback', quoteLinks: [], replyLinks: [] };
+        let ARTIST_INTENT_DATA = { quoteLinks: [], replyLinks: [] };
+        let postsViewMode = 'phrases';
+        let USED_POSTS = JSON.parse(localStorage.getItem('used_posts_hash') || '{}');
+        let USED_INTENTS = JSON.parse(localStorage.getItem('used_intents_hash') || '[]');
+        
+        let OWN_DATA = {
+            'SET1': JSON.parse(localStorage.getItem('own_set1_phrases') || '[]'),
+            'SET2': JSON.parse(localStorage.getItem('own_set2_phrases') || '[]'),
+            'SET3': JSON.parse(localStorage.getItem('own_set3_phrases') || '[]')
+        };
+        let USED_OWN_POSTS = JSON.parse(localStorage.getItem('used_own_posts_hash') || '{}');
+
+        let ARTIST_LOCKS = { WilliamEst: false, WILLIAM: false, EST: false, WESLEY: false };
+
+        // Tags controlados por el sistema (Google Sheets)
+        let SYSTEM_TAGS = { WilliamEst: '', WILLIAM: '', EST: '', WESLEY: '' };
+
+        let confirmCallback = null;
+
+        /* === PWA INSTALLATION ENGINE === */
+        function initPWA() {
+            // Manifest is now served by ./manifest.json.
+            // Service worker registration is handled by registerAppServiceWorker().
+        }
+
+
+        /* WETrendingTeam provides the shared root service worker / FCM infrastructure. */
+
+        /* OPTIMIZACIÓN DE VELOCIDAD: Limpieza estricta de memoria para evitar lentitud tras horas de uso */
+        function fetchJSONP(url) {
+            return new Promise((resolve, reject) => {
+                const callback = 'cb_' + Date.now() + Math.random().toString(16).slice(2);
+                const script = document.createElement('script');
+                
+                const cleanup = () => {
+                    delete window[callback];
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                };
+
+                window[callback] = (data) => {
+                    cleanup();
+                    resolve(data);
+                };
+                
+                script.src = `${url}&tqx=responseHandler:${callback}`;
+                script.onerror = () => {
+                    cleanup();
+                    reject(new Error('Network error'));
+                };
+                document.body.appendChild(script);
+                
+                // Timeout de seguridad de 5 segundos
+                setTimeout(() => {
+                    if(window[callback]) {
+                        cleanup();
+                        reject(new Error('Timeout'));
+                    }
+                }, 5000);
+            });
+        }
+
+        async function checkLockStatus() {
+            try {
+                const url = `https://docs.google.com/spreadsheets/d/1PE7lOFidR3E1E_3OdGM5DGH0Lz151dpVwQiWiDntzZs/gviz/tq?gid=1012761765&range=B4:G4&t=${Date.now()}`;
+                const res = await fetchJSONP(url);
+                if (res.table && res.table.rows && res.table.rows.length > 0) {
+                    const b4 = res.table.rows[0].c[0];
+                    const g4 = res.table.rows[0].c[5];
+                    const isLocked = b4 && b4.v && String(b4.v).trim().length > 0;
+                    const lockOverlay = document.getElementById('lock-screen-overlay');
+                    if (isLocked) {
+                        lockOverlay.style.display = 'flex';
+                        if (g4 && g4.v) {
+                            let logoUrl = String(g4.v).trim();
+                            if (logoUrl.includes('drive.google.com/file/d/')) {
+                                const fileId = logoUrl.match(/\/file\/d\/([^\/]+)/)[1];
+                                logoUrl = `https://lh3.googleusercontent.com/d/${fileId}=s500?authuser=0`;
+                            }
+                            const logoImg = document.getElementById('lock-logo');
+                            logoImg.src = logoUrl;
+                            logoImg.style.display = 'block';
+                        }
+                    } else {
+                        lockOverlay.style.display = 'none';
+                    }
+                }
+            } catch (e) {
+                console.error('Error checking lock status', e);
+            }
+        }
+
+        async function checkSystemTags() {
+            try {
+                const url = `https://docs.google.com/spreadsheets/d/1PE7lOFidR3E1E_3OdGM5DGH0Lz151dpVwQiWiDntzZs/gviz/tq?gid=1012761765&range=B10:E10&t=${Date.now()}`;
+                const res = await fetchJSONP(url);
+                if (res.table && res.table.rows && res.table.rows.length > 0) {
+                    const row = res.table.rows[0];
+                    const getVal = (col) => (row.c[col] && row.c[col].v) ? String(row.c[col].v).trim() : '';
+                    SYSTEM_TAGS.WilliamEst = getVal(0);
+                    SYSTEM_TAGS.WILLIAM = getVal(1);
+                    SYSTEM_TAGS.EST = getVal(2);
+                    SYSTEM_TAGS.WESLEY = getVal(3);
+                    updateTagsUI();
+                }
+            } catch (e) {
+                console.error('Error checking system tags', e);
+            }
+        }
+
+        function updateIntentButtonUI() {
+            const intentBtn = document.getElementById('mode-intent-btn');
+            if (intentBtn) {
+                if (ARTIST_LOCKS[currentArtist]) {
+                    intentBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Intent Link';
+                    intentBtn.classList.add('locked-btn');
+                } else {
+                    intentBtn.innerHTML = '<i class="fa-solid fa-bolt"></i> Intent Link';
+                    intentBtn.classList.remove('locked-btn');
+                }
+            }
+        }
+
+        async function checkArtistLocks() {
+            try {
+                const url = `https://docs.google.com/spreadsheets/d/1PE7lOFidR3E1E_3OdGM5DGH0Lz151dpVwQiWiDntzZs/gviz/tq?gid=1012761765&range=B15:E15&t=${Date.now()}`;
+                const res = await fetchJSONP(url);
+                if (res.table && res.table.rows && res.table.rows.length > 0) {
+                    const row = res.table.rows[0];
+                    const isLocked = (col) => (row.c[col] && row.c[col].v && String(row.c[col].v).trim().length > 0);
+                    ARTIST_LOCKS.WilliamEst = isLocked(0);
+                    ARTIST_LOCKS.WILLIAM = isLocked(1);
+                    ARTIST_LOCKS.EST = isLocked(2);
+                    ARTIST_LOCKS.WESLEY = isLocked(3);
+                    
+                    document.querySelectorAll('.artist-btn').forEach(btn => {
+                        const artist = btn.dataset.artist;
+                        const baseText = artist === 'WilliamEst' ? 'WilliamEst' : artist;
+                        const lockIcon = '<i class="fa-solid fa-lock" style="font-size:0.85em; opacity:0.8; margin-right:4px;"></i>';
+                        btn.innerHTML = ARTIST_LOCKS[artist] ? `${lockIcon}${baseText}` : baseText;
+                    });
+                    
+                    updateIntentButtonUI();
+                    
+                    if (document.getElementById('posts-view').classList.contains('active')) {
+                        if (postsViewMode === 'phrases') {
+                            renderCategoryButtons();
+                            renderPhrases();
+                        }
+                        else renderArtistIntents();
+                    }
+                }
+            } catch (e) {
+                console.error('Error checking artist locks', e);
+            }
+        }
+
+        // FIX: Deep Linking (Redirección cíclica arreglada para mobile app opening limpios)
+        function openUniversalLink(intentUrl, callback) {
+            window.open(intentUrl, '_blank', 'noopener,noreferrer');
+            if (callback) callback();
+        }
+
+        /* === INITIALIZATION === */
+        document.addEventListener('DOMContentLoaded', () => {
+            initPWA(); // Iniciar motor PWA para instalar en celular
+            initTheme();
+            checkLockStatus(); // Revisar bloqueo inmediatamente al cargar
+            checkSystemTags(); // Revisar tags oficiales inmediatamente
+            checkArtistLocks(); // Revisar bloqueos de artistas
+            setInterval(() => {
+                checkLockStatus();
+                checkSystemTags();
+                checkArtistLocks();
+            }, 60000); // Volver a revisar cada 60 segundos
+            initNav();
+            initArtistSelection();
+            initActions();
+            initOwnActions();
+            loadPanelsData();
+            loadPosts();
+            renderOwnPhrases();
+        });
+
+        /* === UI & THEMING === */
+        function initTheme() {
+            const isDark = localStorage.getItem('theme') === 'dark';
+            if (isDark) document.body.classList.add('dark-mode');
+            updateThemeIcon();
+            
+            document.getElementById('theme-toggle').addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+                updateThemeIcon();
+            });
+        }
+        function updateThemeIcon() {
+            const icon = document.querySelector('#theme-toggle i');
+            icon.className = document.body.classList.contains('dark-mode') ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        }
+
+        function customAlert(msg) {
+            document.getElementById('alert-msg').innerHTML = msg.replace(/\n/g, '<br>');
+            document.getElementById('alert-modal').style.display = 'flex';
+        }
+        document.getElementById('alert-ok-btn').addEventListener('click', () => {
+            document.getElementById('alert-modal').style.display = 'none';
+        });
+
+        function customConfirm(msg, callback) {
+            document.getElementById('confirm-msg').innerHTML = msg;
+            confirmCallback = callback;
+            document.getElementById('confirm-modal').style.display = 'flex';
+        }
+        document.getElementById('confirm-cancel-btn').addEventListener('click', () => {
+            document.getElementById('confirm-modal').style.display = 'none';
+            confirmCallback = null;
+        });
+        document.getElementById('confirm-ok-btn').addEventListener('click', () => {
+            document.getElementById('confirm-modal').style.display = 'none';
+            if (confirmCallback) confirmCallback();
+        });
+
+        function initNav() {
+            document.querySelectorAll('.main-nav-btn[data-target]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.main-nav-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    document.querySelectorAll('.app-view').forEach(v => v.classList.remove('active'));
+                    document.getElementById(e.target.dataset.target).classList.add('active');
+                    
+                    if(e.target.dataset.target === 'intent-view' && getCombinedLinkCount(INTENT_DATA) === 0) {
+                        loadIntents();
+                    }
+                });
+            });
+        }
+
+        function initArtistSelection() {
+            document.querySelectorAll('.artist-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.artist === currentArtist);
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.artist-btn').forEach(c => c.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentArtist = e.target.dataset.artist;
+                    localStorage.setItem('selectedArtist', currentArtist);
+                    
+                    updateTagsUI(); // Actualizar panel de tags al cambiar de artista
+                    updateIntentButtonUI(); // Actualizar el candado del botón Intent Link al instante
+                    
+                    loadPosts(true);
+                    if(document.getElementById('intent-view').classList.contains('active')) {
+                        loadIntents();
+                    }
+                });
+            });
+        }
+
+        function initActions() {
+            document.getElementById('mode-intent-btn').addEventListener('click', () => {
+                if (ARTIST_LOCKS[currentArtist]) return; // Evitar click si el artista está bloqueado
+
+                if (postsViewMode === 'intents') {
+                    // Salir de Intent Links y volver a las frases normales
+                    postsViewMode = 'phrases';
+                    document.getElementById('category-buttons-container').style.display = 'flex';
+                    
+                    // Restaurar visualmente el botón del modo anterior (Tweet, Copy, etc.)
+                    document.querySelectorAll('#posts-view .sidebar-actions .flat-btn').forEach(btn => btn.classList.remove('active'));
+                    const activeModeBtn = document.getElementById(`mode-${currentMode}-btn`);
+                    if(activeModeBtn) activeModeBtn.classList.add('active');
+                    
+                    // Restaurar la cuadrícula y renderizar
+                    const container = document.getElementById('posts-container');
+                    container.classList.remove('fallback-split-view');
+                    container.classList.add('content-grid');
+                    renderPhrases();
+                } else {
+                    // Entrar al modo Intent Links
+                    postsViewMode = 'intents';
+                    document.querySelectorAll('#posts-view .sidebar-actions .flat-btn').forEach(btn => btn.classList.remove('active'));
+                    document.getElementById('mode-intent-btn').classList.add('active');
+                    
+                    document.getElementById('category-buttons-container').style.display = 'none';
+                    renderArtistIntents();
+                }
+            });
+
+            ['copy', 'tweet', 'quote', 'reply'].forEach(mode => {
+                document.getElementById(`mode-${mode}-btn`).addEventListener('click', () => {
+                    if (postsViewMode === 'intents') {
+                        postsViewMode = 'phrases';
+                        document.getElementById('category-buttons-container').style.display = 'flex';
+                        const container = document.getElementById('posts-container');
+                        container.classList.remove('fallback-split-view');
+                        container.classList.add('content-grid');
+                        renderPhrases();
+                    }
+                    if(mode === 'quote' || mode === 'reply') openUrlModal(mode, false);
+                    else setMode(mode);
+                });
+            });
+            setMode(currentMode, true);
+
+            document.getElementById('toggle-tags-btn').addEventListener('click', () => {
+                const systemTag = SYSTEM_TAGS[currentArtist];
+                if (systemTag && systemTag.length > 0) {
+                    customAlert("<strong style='color:var(--primary); font-size:1.05rem;'>📌 OFFICIAL KEYWORDS ACTIVATED</strong>\n\nSystem tags are currently active until further notice.\n\nYour custom tags are safely saved but temporarily disabled so we can focus our support unitedly.");
+                }
+                togglePanel('tags-panel');
+            });
+            document.getElementById('toggle-emojis-btn').addEventListener('click', () => togglePanel('emojis-panel'));
+
+            document.getElementById('close-tags-btn').addEventListener('click', () => document.getElementById('tags-panel').classList.remove('active'));
+            document.getElementById('close-emojis-btn').addEventListener('click', () => document.getElementById('emojis-panel').classList.remove('active'));
+
+            document.getElementById('save-tags-btn').addEventListener('click', () => savePanelData('tags'));
+            document.getElementById('clear-tags-btn').addEventListener('click', () => clearPanelData('tags'));
+            document.getElementById('save-emojis-btn').addEventListener('click', () => savePanelData('emojis'));
+            document.getElementById('clear-emojis-btn').addEventListener('click', () => clearPanelData('emojis'));
+
+            document.getElementById('update-posts-btn').addEventListener('click', () => loadPosts(true));
+            document.getElementById('reset-posts-btn').addEventListener('click', resetAllPosts);
+            
+            document.getElementById('hard-reset-btn').addEventListener('click', () => {
+                customConfirm("Are you sure you want to completely Reset All? This clears used phrases, added tags, emojis, and custom Quote/Reply links.", () => {
+                    // Reset posts
+                    USED_POSTS = {};
+                    localStorage.removeItem('used_posts_hash');
+                    
+                    // Clear Tags for all artists
+                    ['WilliamEst', 'WILLIAM', 'EST', 'WESLEY'].forEach(artist => {
+                        localStorage.removeItem(`tags_${artist}`);
+                    });
+                    document.getElementById('tags-input').value = '';
+                    
+                    // Clear Emojis
+                    document.getElementById('emojis-input').value = '';
+                    localStorage.removeItem('emojis_global');
+                    
+                    // Clear Links
+                    postUrls = {"quote":{}, "reply":{}};
+                    localStorage.setItem('postUrls', JSON.stringify(postUrls));
+                    
+                    // Update UI
+                    updateTagsUI();
+                    renderPhrases();
+                    customAlert("Everything has been reset to defaults.");
+                });
+            });
+
+            // Fix: Connect the Update and Restore buttons for Direct Intent Link
+            document.getElementById('update-intent-btn').addEventListener('click', () => {
+                loadIntents(false);
+            });
+            document.getElementById('restore-intent-btn').addEventListener('click', () => {
+                customConfirm("Are you sure you want to restore all used links?", () => {
+                    USED_INTENTS = [];
+                    localStorage.removeItem('used_intents_hash');
+                    if (document.getElementById('intent-view').classList.contains('active')) {
+                        renderIntents();
+                    } else if (postsViewMode === 'intents') {
+                        renderArtistIntents();
+                    }
+                    customAlert("All links have been restored.");
+                });
+            });
+            
+            document.getElementById('url-modal-cancel').addEventListener('click', () => document.getElementById('url-modal').style.display = 'none');
+            
+            document.getElementById('url-modal-clear').addEventListener('click', () => {
+                const input = document.getElementById('url-modal-input');
+                const mode = input.dataset.mode;
+                const isOwn = input.dataset.isOwn === 'true';
+                
+                if (isOwn) {
+                    postOwnUrls[mode][currentArtist] = '';
+                    localStorage.setItem('postOwnUrls', JSON.stringify(postOwnUrls));
+                    setOwnMode('tweet');
+                } else {
+                    postUrls[mode][currentArtist] = '';
+                    localStorage.setItem('postUrls', JSON.stringify(postUrls));
+                    setMode('tweet');
+                }
+                input.value = '';
+                document.getElementById('url-modal').style.display = 'none';
+                customAlert("URL cleared and mode reset to TWEET.");
+            });
+
+            document.getElementById('url-modal-save').addEventListener('click', saveUrlModal);
+        }
+
+        function initOwnActions() {
+            ['copy', 'tweet', 'quote', 'reply'].forEach(mode => {
+                document.getElementById(`own-mode-${mode}-btn`).addEventListener('click', () => {
+                    if(mode === 'quote' || mode === 'reply') openUrlModal(mode, true);
+                    else setOwnMode(mode);
+                });
+            });
+            setOwnMode(currentOwnMode, true);
+
+            document.getElementById('toggle-own-tags-btn').addEventListener('click', () => {
+                const systemTag = SYSTEM_TAGS[currentArtist];
+                if (systemTag && systemTag.length > 0) {
+                    customAlert("<strong style='color:var(--primary); font-size:1.05rem;'>📌 OFFICIAL KEYWORDS ACTIVATED</strong>\n\nSystem tags are currently active until further notice.\n\nYour custom tags are safely saved but temporarily disabled so we can focus our support unitedly.");
+                }
+                togglePanel('own-tags-panel');
+            });
+            document.getElementById('close-own-tags-btn').addEventListener('click', () => document.getElementById('own-tags-panel').classList.remove('active'));
+            document.getElementById('save-own-tags-btn').addEventListener('click', () => savePanelData('own-tags'));
+            document.getElementById('clear-own-tags-btn').addEventListener('click', () => clearPanelData('own-tags'));
+
+            // Setup set navigation for Own Phrases
+            ['SET1', 'SET2', 'SET3'].forEach(set => {
+                const btn = document.getElementById(`own-${set.toLowerCase()}-btn`);
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('[id^="own-set"]').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentOwnCategory = set;
+                    renderOwnPhrases();
+                });
+            });
+
+            // Add Phrases Modal Logic
+            document.getElementById('add-own-phrases-btn').addEventListener('click', () => {
+                document.getElementById('add-phrases-set-label').textContent = currentOwnCategory.replace('SET', 'SET ');
+                document.getElementById('add-phrases-input').value = OWN_DATA[currentOwnCategory].join('\n');
+                document.getElementById('add-phrases-modal').style.display = 'flex';
+                document.getElementById('add-phrases-input').focus();
+            });
+
+            document.getElementById('clear-add-phrases-btn').addEventListener('click', () => document.getElementById('add-phrases-input').value = '');
+            document.getElementById('cancel-add-phrases-btn').addEventListener('click', () => document.getElementById('add-phrases-modal').style.display = 'none');
+            
+            document.getElementById('save-add-phrases-btn').addEventListener('click', () => {
+                const lines = document.getElementById('add-phrases-input').value.split('\n');
+                const newPhrases = [];
+                for (let line of lines) {
+                    let p = line.trim().replace(/^\d+[\.\)]\s*/, '').replace(/^\d+\s*[\.\)]\s*/, '').replace(/^[\•\-\*]\s*/, '');
+                    if (p.length > 0) newPhrases.push(p);
+                }
+                const finalPhrases = newPhrases.slice(0, 1000);
+                
+                OWN_DATA[currentOwnCategory] = finalPhrases;
+                localStorage.setItem(`own_${currentOwnCategory.toLowerCase()}_phrases`, JSON.stringify(finalPhrases));
+                
+                // Clear used status for this specific set
+                finalPhrases.forEach(p => {
+                    const hash = hashString(p + currentOwnCategory);
+                    delete USED_OWN_POSTS[hash];
+                });
+                localStorage.setItem('used_own_posts_hash', JSON.stringify(USED_OWN_POSTS));
+
+                document.getElementById('add-phrases-modal').style.display = 'none';
+                renderOwnPhrases();
+                customAlert(`Saved ${finalPhrases.length} phrases to ${currentOwnCategory.replace('SET', 'SET ')}!`);
+            });
+
+            // AI Modal Logic
+            document.getElementById('ai-generate-btn').addEventListener('click', () => {
+                document.getElementById('ai-modal').style.display = 'flex';
+            });
+            document.getElementById('ai-exit-btn').addEventListener('click', () => {
+                document.getElementById('ai-modal').style.display = 'none';
+            });
+            document.querySelectorAll('.ai-service-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    window.open(e.target.dataset.url, '_blank');
+                    document.getElementById('ai-modal').style.display = 'none';
+                });
+            });
+
+            // Restore/Reset Logics
+            document.getElementById('restore-own-posts-btn').addEventListener('click', () => {
+                customConfirm(`Restore all copied phrases for ${currentOwnCategory.replace('SET', 'SET ')}?`, () => {
+                    OWN_DATA[currentOwnCategory].forEach(p => {
+                        const hash = hashString(p + currentOwnCategory);
+                        delete USED_OWN_POSTS[hash];
+                    });
+                    localStorage.setItem('used_own_posts_hash', JSON.stringify(USED_OWN_POSTS));
+                    renderOwnPhrases();
+                    customAlert(`Restored copied phrases for ${currentOwnCategory.replace('SET', 'SET ')}!`);
+                });
+            });
+
+            document.getElementById('reset-own-all-btn').addEventListener('click', () => {
+                customConfirm(`Are you sure you want to DELETE ALL phrases from all sets? This cannot be undone.`, () => {
+                    ['SET1', 'SET2', 'SET3'].forEach(k => {
+                        OWN_DATA[k] = [];
+                        localStorage.removeItem(`own_${k.toLowerCase()}_phrases`);
+                    });
+                    USED_OWN_POSTS = {};
+                    localStorage.removeItem('used_own_posts_hash');
+                    renderOwnPhrases();
+                    customAlert(`All YOUR OWN PHRASES have been deleted!`);
+                });
+            });
+        }
+
+        function setMode(mode, silent=false) {
+            currentMode = mode;
+            localStorage.setItem('currentMode', mode);
+            document.querySelectorAll('#posts-view [id^="mode-"]').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`mode-${mode}-btn`).classList.add('active');
+            if(!silent) customAlert(`Mode set to: ${mode.toUpperCase()}`);
+        }
+
+        function setOwnMode(mode, silent=false) {
+            currentOwnMode = mode;
+            localStorage.setItem('currentOwnMode', mode);
+            document.querySelectorAll('#own-phrases-view [id^="own-mode-"]').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`own-mode-${mode}-btn`).classList.add('active');
+            if(!silent) customAlert(`Own Mode set to: ${mode.toUpperCase()}`);
+        }
+
+        function togglePanel(id) {
+            document.getElementById(id).classList.toggle('active');
+        }
+
+        function updateTagsUI() {
+            const systemTag = SYSTEM_TAGS[currentArtist];
+            
+            // Paneles de Posts y Own Phrases
+            const tagsInput = document.getElementById('tags-input');
+            const saveBtn = document.getElementById('save-tags-btn');
+            const clearBtn = document.getElementById('clear-tags-btn');
+            
+            const ownTagsInput = document.getElementById('own-tags-input');
+            const ownSaveBtn = document.getElementById('save-own-tags-btn');
+            const ownClearBtn = document.getElementById('clear-own-tags-btn');
+
+            if (systemTag && systemTag.length > 0) {
+                // Sistema controla los tags (Bloqueo UI)
+                if (tagsInput) {
+                    tagsInput.value = systemTag;
+                    tagsInput.readOnly = true;
+                    tagsInput.style.opacity = '0.6';
+                    tagsInput.style.cursor = 'not-allowed';
+                    if(saveBtn) saveBtn.style.display = 'none';
+                    if(clearBtn) clearBtn.style.display = 'none';
+                }
+                if (ownTagsInput) {
+                    ownTagsInput.value = systemTag;
+                    ownTagsInput.readOnly = true;
+                    ownTagsInput.style.opacity = '0.6';
+                    ownTagsInput.style.cursor = 'not-allowed';
+                    if(ownSaveBtn) ownSaveBtn.style.display = 'none';
+                    if(ownClearBtn) ownClearBtn.style.display = 'none';
+                }
+            } else {
+                // Usuario controla los tags individualmente por artista
+                if (tagsInput) {
+                    tagsInput.value = localStorage.getItem(`tags_${currentArtist}`) || '';
+                    tagsInput.readOnly = false;
+                    tagsInput.style.opacity = '1';
+                    tagsInput.style.cursor = 'text';
+                    if(saveBtn) saveBtn.style.display = 'inline-flex';
+                    if(clearBtn) clearBtn.style.display = 'inline-flex';
+                }
+                if (ownTagsInput) {
+                    ownTagsInput.value = localStorage.getItem(`own_tags_${currentArtist}`) || '';
+                    ownTagsInput.readOnly = false;
+                    ownTagsInput.style.opacity = '1';
+                    ownTagsInput.style.cursor = 'text';
+                    if(ownSaveBtn) ownSaveBtn.style.display = 'inline-flex';
+                    if(ownClearBtn) ownClearBtn.style.display = 'inline-flex';
+                }
+            }
+        }
+
+        function loadPanelsData() {
+            updateTagsUI();
+            document.getElementById('emojis-input').value = localStorage.getItem('emojis_global') || '';
+        }
+
+        function savePanelData(type) {
+            if(type === 'tags') {
+                localStorage.setItem(`tags_${currentArtist}`, document.getElementById('tags-input').value);
+                customAlert('Tags saved!');
+            } else if (type === 'emojis') {
+                localStorage.setItem('emojis_global', document.getElementById('emojis-input').value);
+                emojiCycleIndex = 0;
+                customAlert('Emojis saved!');
+            } else if (type === 'own-tags') {
+                localStorage.setItem(`own_tags_${currentArtist}`, document.getElementById('own-tags-input').value);
+                customAlert('Own Tags saved!');
+            }
+        }
+
+        function clearPanelData(type) {
+            if(type === 'tags') {
+                document.getElementById('tags-input').value = '';
+                localStorage.removeItem(`tags_${currentArtist}`);
+            } else if (type === 'emojis') {
+                document.getElementById('emojis-input').value = '';
+                localStorage.removeItem('emojis_global');
+            } else if (type === 'own-tags') {
+                document.getElementById('own-tags-input').value = '';
+                localStorage.removeItem(`own_tags_${currentArtist}`);
+            }
+        }
+
+        function openUrlModal(mode, isOwn = false) {
+            document.getElementById('url-modal-title').textContent = `Configure URL for ${mode.toUpperCase()}`;
+            const input = document.getElementById('url-modal-input');
+            input.dataset.mode = mode;
+            input.dataset.isOwn = isOwn;
+            
+            if (isOwn) input.value = postOwnUrls[mode][currentArtist] || '';
+            else input.value = postUrls[mode][currentArtist] || '';
+            
+            document.getElementById('url-modal').style.display = 'flex';
+        }
+
+        function saveUrlModal() {
+            const input = document.getElementById('url-modal-input');
+            const mode = input.dataset.mode;
+            const isOwn = input.dataset.isOwn === 'true';
+            const val = input.value.trim();
+            if(!val) return customAlert("Please enter a valid URL.");
+            
+            if (isOwn) {
+                postOwnUrls[mode][currentArtist] = val;
+                localStorage.setItem('postOwnUrls', JSON.stringify(postOwnUrls));
+                setOwnMode(mode);
+            } else {
+                postUrls[mode][currentArtist] = val;
+                localStorage.setItem('postUrls', JSON.stringify(postUrls));
+                setMode(mode);
+            }
+            document.getElementById('url-modal').style.display = 'none';
+        }
+
+        function hashString(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = ((hash << 5) - hash) + str.charCodeAt(i);
+                hash |= 0;
+            }
+            return hash.toString();
+        }
+
+        function shuffleArray(array) {
+            let cur = array.length, random;
+            while (cur !== 0) {
+                random = Math.floor(Math.random() * cur);
+                cur--;
+                [array[cur], array[random]] = [array[random], array[cur]];
+            }
+            return array;
+        }
+
+        function getColIndex(letter) { return letter.charCodeAt(0) - 65; }
+
+        function getCombinedLinkCount(data) {
+            if(data.mode === 'artist') return data.links.length;
+            return (data.quoteLinks?.length || 0) + (data.replyLinks?.length || 0);
+        }
+
+        function getVisibleCombinedLinkCount(data) {
+            let count = 0;
+            data.quoteLinks?.forEach(url => { if(!USED_INTENTS.includes(hashString(url))) count++; });
+            data.replyLinks?.forEach(url => { if(!USED_INTENTS.includes(hashString(url))) count++; });
+            return count;
+        }
+
+        /* === POSTS LOGIC === */
+        async function loadPosts(force = false, silent = false) {
+            if (!silent && document.getElementById('posts-container')) {
+                document.getElementById('posts-container').innerHTML = '<div class="status-msg">Loading...</div>';
+            }
+            try {
+                const cfg = CONFIG[currentArtist];
+                const resMain = await fetchJSONP(`https://docs.google.com/spreadsheets/d/${cfg.sheetId}/gviz/tq?gid=${cfg.gidPost}&t=${Date.now()}`);
+                const resFallback = await fetchJSONP(`https://docs.google.com/spreadsheets/d/1PE7lOFidR3E1E_3OdGM5DGH0Lz151dpVwQiWiDntzZs/gviz/tq?gid=1197269974`);
+
+                POST_DATA = {};
+                Object.keys(CATEGORIES).forEach(k => POST_DATA[k] = []);
+                ARTIST_INTENT_DATA = { quoteLinks: [], replyLinks: [] };
+
+                if(resMain.table && resMain.table.rows) {
+                    resMain.table.rows.slice(1).forEach(row => {
+                        ['SET1', 'EVENT'].forEach(k => {
+                            const c = row.c[getColIndex(CATEGORIES[k].col)];
+                            if(c && c.v && String(c.v).trim().length > 2) POST_DATA[k].push(String(c.v).trim());
+                        });
+                        
+                        // Cargar Artist Intent Links (Columna K=10, Columna M=12)
+                        const cK = (row.c && row.c.length > 10) ? row.c[10] : null; // Quote
+                        const cM = (row.c && row.c.length > 12) ? row.c[12] : null; // Reply
+                        
+                        if(cK && cK.v && (String(cK.v).includes('twitter.com') || String(cK.v).includes('x.com'))) {
+                            ARTIST_INTENT_DATA.quoteLinks.push(String(cK.v).trim());
+                        }
+                        if(cM && cM.v && (String(cM.v).includes('twitter.com') || String(cM.v).includes('x.com'))) {
+                            ARTIST_INTENT_DATA.replyLinks.push(String(cM.v).trim());
+                        }
+                    });
+                }
+                if(resFallback.table && resFallback.table.rows) {
+                    resFallback.table.rows.slice(1).forEach(row => {
+                        Object.keys(CATEGORIES).forEach(k => {
+                            if(CATEGORIES[k].fallback) {
+                                const c = row.c[getColIndex(CATEGORIES[k].col)];
+                                if(c && c.v && String(c.v).trim().length > 2) POST_DATA[k].push(String(c.v).trim());
+                            }
+                        });
+                    });
+                }
+
+                Object.keys(POST_DATA).forEach(k => { POST_DATA[k] = shuffleArray(POST_DATA[k]); });
+                ARTIST_INTENT_DATA.quoteLinks = shuffleArray(ARTIST_INTENT_DATA.quoteLinks);
+                ARTIST_INTENT_DATA.replyLinks = shuffleArray(ARTIST_INTENT_DATA.replyLinks);
+                
+                if (!silent) {
+                    if (postsViewMode === 'phrases') {
+                        renderCategoryButtons();
+                        renderPhrases();
+                    } else {
+                        renderArtistIntents();
+                    }
+                }
+            } catch (e) {
+                if (!silent && document.getElementById('posts-container')) {
+                    document.getElementById('posts-container').innerHTML = '<div class="status-msg">Failed to load phrases.</div>';
+                }
+            }
+        }
+
+        function renderCategoryButtons() {
+            const catContainer = document.getElementById('category-buttons-container');
+            if(!catContainer) return;
+            catContainer.innerHTML = '';
+            
+            Object.keys(CATEGORIES).forEach(k => {
+                const btn = document.createElement('button');
+                const isLocked = ARTIST_LOCKS[currentArtist] && (k === 'SET1' || k === 'EVENT');
+                
+                btn.className = `category-chip ${currentCategory === k ? 'active' : ''}`;
+                
+                if (isLocked) {
+                    btn.classList.add('locked-btn');
+                    btn.innerHTML = `<i class="fa-solid fa-lock" style="margin-right:4px;"></i>${CATEGORIES[k].name}`;
+                } else {
+                    btn.textContent = CATEGORIES[k].name;
+                }
+                
+                btn.onclick = () => {
+                    currentCategory = k;
+                    document.querySelectorAll('.category-chip').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderPhrases();
+                };
+                catContainer.appendChild(btn);
+            });
+        }
+
+        // FIX: Mostrar título de SETs solo en el modo Phrases
+        function renderPhrases() {
+            const container = document.getElementById('posts-container');
+            if(!container) return;
+            container.innerHTML = '';
+            
+            const titleEl = document.getElementById('posts-title');
+            if (titleEl) {
+                titleEl.style.display = 'block';
+            }
+            
+            if (ARTIST_LOCKS[currentArtist] && (currentCategory === 'SET1' || currentCategory === 'EVENT')) {
+                document.getElementById('posts-title').textContent = `${CATEGORIES[currentCategory].name} (Locked)`;
+                container.innerHTML = '<div class="status-msg" style="grid-column: 1 / -1; padding: 40px;"><i class="fa-solid fa-lock" style="font-size:2.5rem; margin-bottom:15px; display:block; color:var(--text-muted);"></i>Content Locked</div>';
+                return;
+            }
+
+            const phrases = POST_DATA[currentCategory] || [];
+            let visible = 0;
+            
+            // OPTIMIZACIÓN DE VELOCIDAD: DocumentFragment para inyectar 1000+ frases sin congelar el teléfono
+            const fragment = document.createDocumentFragment();
+            
+            phrases.forEach((p) => {
+                const hash = hashString(p);
+                if(!USED_POSTS[hash]) {
+                    visible++;
+                    const box = document.createElement('div');
+                    box.className = 'card-box';
+                    box.innerHTML = `<strong>#${visible}</strong><span>${p}</span>`;
+                    box.onclick = () => processPost(p, hash);
+                    fragment.appendChild(box);
+                }
+            });
+            
+            container.appendChild(fragment);
+            
+            document.getElementById('posts-title').textContent = `${CATEGORIES[currentCategory].name} (${visible}/${phrases.length})`;
+            if(visible === 0 && phrases.length > 0) {
+                container.innerHTML = '<div class="status-msg" style="grid-column: 1 / -1;">All phrases used! Click Reset All to start over.</div>';
+            }
+        }
+
+        function processPost(phrase, hash) {
+            const emojisStr = document.getElementById('emojis-input').value.trim();
+            let emojiToAppend = "";
+            if (emojisStr) {
+                let emojiArr = [];
+                if (window.Intl && window.Intl.Segmenter) {
+                    const segmenter = new Intl.Segmenter(navigator.language, { granularity: 'grapheme' });
+                    emojiArr = Array.from(segmenter.segment(emojisStr)).map(s => s.segment).filter(s => s.trim().length > 0);
+                } else {
+                    emojiArr = [...emojisStr].filter(e => e.trim().length > 0);
+                }
+
+                if (emojiArr.length > 0) {
+                    emojiToAppend = " " + emojiArr[emojiCycleIndex % emojiArr.length];
+                    emojiCycleIndex++;
+                }
+            }
+
+            const systemTag = SYSTEM_TAGS[currentArtist];
+            const tags = (systemTag && systemTag.length > 0) ? systemTag : (document.getElementById('tags-input').value.trim());
+            
+            let finalText = phrase + emojiToAppend;
+            if(tags) finalText += `\n\n${tags}`;
+
+            if (currentMode === 'copy') {
+                navigator.clipboard.writeText(finalText).then(() => {
+                    markUsed(hash);
+                }).catch(()=> customAlert("Copy failed"));
+            } else {
+                let intentUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(finalText)}`;
+                if (currentMode === 'quote') {
+                    const url = postUrls.quote[currentArtist];
+                    if(!url) return openUrlModal('quote', false);
+                    intentUrl += `&url=${encodeURIComponent(url)}`;
+                } else if (currentMode === 'reply') {
+                    const url = postUrls.reply[currentArtist];
+                    if(!url) return openUrlModal('reply', false);
+                    const match = url.match(/status\/(\d+)/);
+                    if(match) intentUrl += `&in_reply_to=${match[1]}`;
+                    else intentUrl += `&url=${encodeURIComponent(url)}`;
+                }
+                openUniversalLink(intentUrl, () => markUsed(hash));
+            }
+        }
+
+        function markUsed(hash) {
+            USED_POSTS[hash] = true;
+            localStorage.setItem('used_posts_hash', JSON.stringify(USED_POSTS));
+            renderPhrases();
+        }
+
+        function resetAllPosts() {
+            customConfirm("Are you sure you want to reset all posts? This will bring back all used phrases.", () => {
+                USED_POSTS = {};
+                localStorage.removeItem('used_posts_hash');
+                renderPhrases();
+                customAlert("All posts have been reset.");
+            });
+        }
+
+        function getVisibleArtistLinkCount() {
+            let count = 0;
+            ARTIST_INTENT_DATA.quoteLinks?.forEach(url => { if(!USED_INTENTS.includes(hashString(url))) count++; });
+            ARTIST_INTENT_DATA.replyLinks?.forEach(url => { if(!USED_INTENTS.includes(hashString(url))) count++; });
+            return count;
+        }
+
+        // FIX: Ocultar título normal en Intent Link
+        function renderArtistIntents() {
+            const container = document.getElementById('posts-container');
+            if(!container) return;
+            container.innerHTML = '';
+            
+            const titleEl = document.getElementById('posts-title');
+            if (titleEl) {
+                titleEl.style.display = 'none'; // Se oculta el título de SET en modo Intents
+            }
+            
+            if (ARTIST_LOCKS[currentArtist]) {
+                if (titleEl) {
+                    titleEl.style.display = 'block';
+                    titleEl.textContent = `INTENT LINKS (Locked)`;
+                }
+                container.innerHTML = '<div class="status-msg" style="grid-column: 1 / -1; padding: 40px;"><i class="fa-solid fa-lock" style="font-size:2.5rem; margin-bottom:15px; display:block; color:var(--text-muted);"></i>Content Locked</div>';
+                container.classList.remove('fallback-split-view');
+                container.classList.add('content-grid');
+                return;
+            }
+            
+            container.classList.remove('content-grid');
+            container.classList.add('fallback-split-view');
+            
+            const createColumn = (title, links, accentColor) => {
+                const col = document.createElement('div');
+                col.className = 'fallback-col';
+                
+                const header = document.createElement('h3');
+                header.className = 'fallback-header';
+                header.style.color = accentColor;
+                col.appendChild(header);
+                
+                // OPTIMIZACIÓN DE VELOCIDAD: DocumentFragment para Intents
+                const fragment = document.createDocumentFragment();
+                let colVisible = 0;
+                
+                links.forEach((url) => {
+                    const hash = hashString(url);
+                    if(!USED_INTENTS.includes(hash)) {
+                        colVisible++;
+                        const box = createIntentBoxObj(url, `${title} #${colVisible}`, hash, accentColor);
+                        fragment.appendChild(box);
+                    }
+                });
+                
+                col.appendChild(fragment);
+                
+                // Actualizar el título con el contador
+                header.textContent = `${title} (${colVisible})`;
+
+                return colVisible > 0 ? col : null;
+            };
+            
+            const quoteCol = createColumn('QUOTE', ARTIST_INTENT_DATA.quoteLinks || [], 'var(--primary)');
+            const replyCol = createColumn('REPLY', ARTIST_INTENT_DATA.replyLinks || [], 'var(--accent-red)');
+            
+            if (quoteCol) container.appendChild(quoteCol);
+            if (replyCol) container.appendChild(replyCol);
+            
+            let visible = getVisibleArtistLinkCount();
+            let total = (ARTIST_INTENT_DATA.quoteLinks?.length || 0) + (ARTIST_INTENT_DATA.replyLinks?.length || 0);
+            
+            if(visible === 0 && total > 0) {
+                container.innerHTML = `<div class="status-msg" style="width: 100%;">All links used!</div>`;
+            } else if (visible === 0) {
+                container.innerHTML = `<div class="status-msg" style="width: 100%;">No links available right now.</div>`;
+            }
+        }
+
+        function renderIntents() {
+            const container = document.getElementById('intent-container');
+            if(!container) return;
+            container.innerHTML = '';
+            
+            let visible = 0;
+            
+            container.classList.remove('intent-grid');
+            container.classList.add('fallback-split-view'); 
+            
+            const createColumn = (title, links, accentColor) => {
+                const col = document.createElement('div');
+                col.className = 'fallback-col';
+                
+                const header = document.createElement('h3');
+                header.className = 'fallback-header';
+                header.style.color = accentColor;
+                col.appendChild(header);
+                
+                // OPTIMIZACIÓN DE VELOCIDAD: DocumentFragment
+                const fragment = document.createDocumentFragment();
+                let colVisible = 0;
+                
+                links.forEach((url) => {
+                    const hash = hashString(url);
+                    if(!USED_INTENTS.includes(hash)) {
+                        visible++;
+                        colVisible++;
+                        fragment.appendChild(createIntentBoxObj(url, `${title} #${colVisible}`, hash, accentColor));
+                    }
+                });
+                
+                col.appendChild(fragment);
+
+                // Actualizar el título con el contador
+                header.textContent = `${title} (${colVisible})`;
+                
+                return colVisible > 0 ? col : null;
+            };
+            
+            const quoteCol = createColumn('QUOTE', INTENT_DATA.quoteLinks || [], 'var(--primary)');
+            const replyCol = createColumn('REPLY', INTENT_DATA.replyLinks || [], 'var(--accent-red)');
+                
+            // Añadir solo si tienen contenido
+            if (quoteCol) container.appendChild(quoteCol);
+            if (replyCol) container.appendChild(replyCol);
+            
+            if(visible === 0 && getCombinedLinkCount(INTENT_DATA) > 0) {
+                container.innerHTML = `<div class="status-msg" style="width: 100%;">All links used!</div>`;
+            } else if (visible === 0) {
+                container.innerHTML = `<div class="status-msg" style="width: 100%;">No links available right now.</div>`;
+            }
+        }
+
+        function renderOwnPhrases() {
+            const container = document.getElementById('own-posts-container');
+            if(!container) return;
+            container.innerHTML = '';
+            
+            const phrases = OWN_DATA[currentOwnCategory] || [];
+            let visible = 0;
+            
+            // OPTIMIZACIÓN DE VELOCIDAD: DocumentFragment
+            const fragment = document.createDocumentFragment();
+            
+            phrases.forEach((p) => {
+                const hash = hashString(p + currentOwnCategory);
+                if(!USED_OWN_POSTS[hash]) {
+                    visible++;
+                    const box = document.createElement('div');
+                    box.className = 'card-box';
+                    box.innerHTML = `<strong>#${visible}</strong><span>${p}</span>`;
+                    box.onclick = () => processOwnPost(p, hash);
+                    fragment.appendChild(box);
+                }
+            });
+            
+            container.appendChild(fragment);
+            
+            document.getElementById('own-posts-title').textContent = `${currentOwnCategory.replace('SET', 'SET ')} (${visible}/${phrases.length})`;
+            
+            if(visible === 0 && phrases.length > 0) {
+                container.innerHTML = '<div class="status-msg" style="grid-column: 1 / -1;">All phrases copied! Restore them to use again.</div>';
+            } else if (phrases.length === 0) {
+                container.innerHTML = '<div class="status-msg" style="grid-column: 1 / -1;">No phrases here. Click "Add" to paste your own phrases!</div>';
+            }
+        }
+
+        function processOwnPost(phrase, hash) {
+            const systemTag = SYSTEM_TAGS[currentArtist];
+            const tags = (systemTag && systemTag.length > 0) ? systemTag : (document.getElementById('own-tags-input').value.trim());
+            let finalText = phrase;
+            if(tags) finalText += `\n\n${tags}`;
+
+            if (currentOwnMode === 'copy') {
+                navigator.clipboard.writeText(finalText).then(() => {
+                    markOwnUsed(hash);
+                }).catch(()=> customAlert("Copy failed"));
+            } else {
+                let intentUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(finalText)}`;
+                if (currentOwnMode === 'quote') {
+                    const url = postOwnUrls.quote[currentArtist];
+                    if(!url) return openUrlModal('quote', true);
+                    intentUrl += `&url=${encodeURIComponent(url)}`;
+                } else if (currentOwnMode === 'reply') {
+                    const url = postOwnUrls.reply[currentArtist];
+                    if(!url) return openUrlModal('reply', true);
+                    const match = url.match(/status\/(\d+)/);
+                    if(match) intentUrl += `&in_reply_to=${match[1]}`;
+                    else intentUrl += `&url=${encodeURIComponent(url)}`;
+                }
+                openUniversalLink(intentUrl, () => markOwnUsed(hash));
+            }
+        }
+
+        function markOwnUsed(hash) {
+            USED_OWN_POSTS[hash] = true;
+            localStorage.setItem('used_own_posts_hash', JSON.stringify(USED_OWN_POSTS));
+            renderOwnPhrases();
+        }
+
+        function createIntentBoxObj(url, label, hash, borderColor) {
+            const box = document.createElement('div');
+            box.className = 'card-box';
+            if (borderColor) box.style.borderLeftColor = borderColor;
+            
+            const badge = document.createElement('strong');
+            badge.textContent = label;
+            if (borderColor) {
+                badge.style.color = borderColor;
+                badge.style.background = borderColor === 'var(--primary)' ? 'rgba(37, 99, 235, 0.1)' : 'rgba(225, 29, 72, 0.1)';
+            }
+            
+            const text = document.createElement('span');
+            text.textContent = 'Click to open intent';
+            
+            box.appendChild(badge);
+            box.appendChild(text);
+            
+            box.onclick = () => {
+                openUniversalLink(url, () => {
+                    USED_INTENTS.push(hash);
+                    localStorage.setItem('used_intents_hash', JSON.stringify(USED_INTENTS));
+                    
+                    if (document.getElementById('posts-view').classList.contains('active') && postsViewMode === 'intents') {
+                        renderArtistIntents();
+                    } else {
+                        renderIntents();
+                    }
+                });
+            };
+            
+            return box;
+        }
+
+        async function loadIntents(silent = false) {
+            if(!silent) {
+                document.getElementById('intent-container').innerHTML = '';
+                document.getElementById('intent-loading').style.display = 'block';
+            }
+            
+            try {
+                // SOLUCIÓN DEFINITIVA: Usamos SELECT A, D.
+                // Esto obliga a Google Sheets a enviar la Columna D aunque la B y C estén vacías.
+                const query = encodeURIComponent('SELECT A, D');
+                const resFb = await fetchJSONP(`https://docs.google.com/spreadsheets/d/1PE7lOFidR3E1E_3OdGM5DGH0Lz151dpVwQiWiDntzZs/gviz/tq?gid=1554645159&tq=${query}&t=${Date.now()}`);
+                let quoteLinks = [], replyLinks = [];
+                
+                if(resFb.table && resFb.table.rows) {
+                    // Usamos slice(1) para saltar manualmente la Fila 1 (Títulos)
+                    resFb.table.rows.slice(1).forEach(row => {
+                        // Al usar SELECT A, D, la Columna A se convierte en el índice [0] y la Columna D en el índice [1]
+                        const cA = (row.c && row.c.length > 0) ? row.c[0] : null; // Quote (Col A)
+                        const cD = (row.c && row.c.length > 1) ? row.c[1] : null; // Reply (Col D, ahora índice 1)
+                        
+                        if(cA && cA.v && (String(cA.v).includes('twitter.com') || String(cA.v).includes('x.com'))) {
+                            quoteLinks.push(String(cA.v).trim());
+                        }
+                        if(cD && cD.v && (String(cD.v).includes('twitter.com') || String(cD.v).includes('x.com'))) {
+                            replyLinks.push(String(cD.v).trim());
+                        }
+                    });
+                }
+                INTENT_DATA = { mode: 'fallback', quoteLinks: shuffleArray(quoteLinks), replyLinks: shuffleArray(replyLinks) };
+                
+                if(!silent) renderIntents(); 
+                return getCombinedLinkCount(INTENT_DATA); 
+
+            } catch (e) {
+                if(!silent) {
+                    document.getElementById('intent-container').innerHTML = '<div class="status-msg" style="width: 100%;">Failed to load links.</div>';
+                }
+                return 0;
+            } finally {
+                if(!silent) {
+                    document.getElementById('intent-loading').style.display = 'none';
+                }
+            }
+        }
+
+        function setupNotifications() {
+            const notifyBtn = document.getElementById('notify-btn');
+            if (!notifyBtn) return;
+
+            const notifyIcon = notifyBtn.querySelector('i');
+
+            const updateNotificationButton = () => {
+                const permission = ("Notification" in window) ? Notification.permission : "unsupported";
+                const enabled = localStorage.getItem("wetrending_notifications_enabled") === "true";
+
+                if (permission === "granted" && enabled) {
+                    isNotifying = true;
+                    notifyIcon.className = 'fa-solid fa-bell';
+                    notifyBtn.style.color = 'var(--primary)';
+                    notifyBtn.title = "Turn Off Notifications";
+                } else {
+                    isNotifying = false;
+                    notifyIcon.className = 'fa-solid fa-bell-slash';
+                    notifyBtn.style.color = 'var(--text-muted)';
+                    notifyBtn.title = "Turn On Notifications";
+                }
+            };
+
+            updateNotificationButton();
+
+            notifyBtn.addEventListener('click', async () => {
+                if (!("Notification" in window)) {
+                    customAlert("Your browser does not support notifications.");
+                    return;
+                }
+
+                if (Notification.permission === "denied") {
+                    customAlert("Notifications are blocked. Enable them in your browser settings.");
+                    return;
+                }
+
+                if (isNotifying) {
+                    isNotifying = false;
+                    localStorage.setItem("wetrending_notifications_enabled", "false");
+                    clearInterval(notificationInterval);
+                    updateNotificationButton();
+                    customAlert("Notifications Disabled");
+                    return;
+                }
+
+                try {
+                    const permission = await Notification.requestPermission();
+
+                    if (permission === "granted") {
+                        isNotifying = true;
+                        localStorage.setItem("wetrending_notifications_enabled", "true");
+                        updateNotificationButton();
+
+                        // This is the existing foreground polling fallback.
+                        // FCM push registration will be added here later.
+                        startNotificationPolling();
+
+                        customAlert("Notifications Enabled");
+                    } else {
+                        updateNotificationButton();
+                        customAlert("Notification permission was not granted.");
+                    }
+                } catch (error) {
+                    console.warn("[WETrending] Notification permission error:", error);
+                    customAlert("Could not enable notifications.");
+                }
+            });
+        }
+
+        function startNotificationPolling() {
+            let lastCount = getCombinedLinkCount(INTENT_DATA) + 
+                            (ARTIST_INTENT_DATA.quoteLinks ? ARTIST_INTENT_DATA.quoteLinks.length : 0) + 
+                            (ARTIST_INTENT_DATA.replyLinks ? ARTIST_INTENT_DATA.replyLinks.length : 0);
+            
+            notificationInterval = setInterval(async () => {
+                try {
+                    // Cargar silenciosamente en segundo plano
+                    await loadIntents(true); 
+                    await loadPosts(true, true); 
+
+                    let newCount = getCombinedLinkCount(INTENT_DATA) + 
+                                   (ARTIST_INTENT_DATA.quoteLinks ? ARTIST_INTENT_DATA.quoteLinks.length : 0) + 
+                                   (ARTIST_INTENT_DATA.replyLinks ? ARTIST_INTENT_DATA.replyLinks.length : 0);
+
+                    // Si hay más enlaces que antes, notificar y actualizar
+                    if (newCount > lastCount) {
+                        new Notification("WETrending SPACE", {
+                            body: "New intent links are available! 🔗🚀",
+                            icon: "https://cdn-icons-png.flaticon.com/512/4730/4730509.png" // Icono de Twitter/Link (opcional)
+                        });
+                        
+                        lastCount = newCount;
+                        
+                        // Actualizar la vista automáticamente si el usuario está viéndola
+                        if(document.getElementById('intent-view').classList.contains('active')) {
+                            renderIntents();
+                        } else if(postsViewMode === 'intents' && document.getElementById('posts-view').classList.contains('active')) {
+                            renderArtistIntents();
+                        }
+                    } else if (newCount < lastCount) {
+                        // Si el admin borró enlaces, solo actualizamos el contador base para que no haya falsas alarmas después
+                        lastCount = newCount; 
+                    }
+                } catch(e) {
+                    console.log("Silent background poll failed (network/api limit).", e);
+                }
+            }, 60000); // 60000 ms = 1 minuto
+        }
+    </script>
+
+    <!-- WETrending SPACE / WETrendingTeam internal footer -->
+    <footer class="space-designer-credit">
+        <span>Designed &amp; Developed by</span>
+        <a href="https://x.com/13let_it_be" target="_blank" rel="noopener noreferrer">@13let_it_be</a>
+    </footer>
+
+    <style>
+        .space-designer-credit {
+            width: 100%;
+            padding: 18px 14px 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 11px;
+            line-height: 1.5;
+        }
+        .space-designer-credit a {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            margin-left: 4px;
+        }
+        .space-designer-credit a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <script type="module" src="./space-fcm.js"></script>
+
+</body>
+</html>

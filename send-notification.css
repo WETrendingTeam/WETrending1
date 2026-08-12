@@ -1,0 +1,282 @@
+/* ==========================================
+   WETrendingTeam
+   Send Notification Page
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background: #f4f6f8;
+
+    color: #222;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+
+/* ==========================================
+   CONTAINER
+========================================== */
+
+.notification-container {
+    width: 100%;
+    max-width: 620px;
+}
+
+
+/* ==========================================
+   CARD
+========================================== */
+
+.notification-card {
+    background: #ffffff;
+
+    width: 100%;
+
+    padding: 30px;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ==========================================
+   HEADING
+========================================== */
+
+.notification-card h1 {
+    font-size: 28px;
+
+    margin-bottom: 10px;
+}
+
+.notification-card > p {
+    color: #666;
+
+    line-height: 1.6;
+
+    margin-bottom: 28px;
+}
+
+
+/* ==========================================
+   LABELS
+========================================== */
+
+.notification-card label {
+    display: block;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+
+    margin-top: 20px;
+}
+
+
+/* ==========================================
+   INPUTS
+========================================== */
+
+.notification-card input,
+.notification-card textarea {
+    width: 100%;
+
+    padding: 14px;
+
+    border: 1px solid #d9dde2;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    font-family: inherit;
+
+    outline: none;
+
+    background: #fff;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+.notification-card input:focus,
+.notification-card textarea:focus {
+    border-color: #555;
+
+    box-shadow:
+        0 0 0 3px rgba(0, 0, 0, 0.06);
+}
+
+.notification-card textarea {
+    resize: vertical;
+
+    min-height: 140px;
+}
+
+
+/* ==========================================
+   SEND BUTTON
+========================================== */
+
+#sendNotificationBtn {
+    width: 100%;
+
+    margin-top: 28px;
+
+    padding: 15px 20px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #222;
+
+    color: #fff;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s,
+        opacity 0.15s;
+}
+
+#sendNotificationBtn:hover {
+    opacity: 0.9;
+}
+
+#sendNotificationBtn:active {
+    transform: scale(0.98);
+}
+
+#sendNotificationBtn:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* ==========================================
+   STATUS MESSAGE
+========================================== */
+
+.send-status {
+    margin-top: 18px;
+
+    min-height: 24px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+/* ==========================================
+   BACK BUTTON
+========================================== */
+
+.back-btn {
+    width: 100%;
+
+    padding: 13px 18px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    background: #fff;
+
+    color: #222;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s;
+}
+
+.back-btn:hover {
+    background: #f3f3f3;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .notification-card {
+        padding: 22px;
+
+        border-radius: 14px;
+    }
+
+    .notification-card h1 {
+        font-size: 24px;
+    }
+
+}
+
+/* ==========================================
+   NOTIFICATION AUDIENCE / URL
+========================================== */
+
+.notification-card select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d9dde2;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    outline: none;
+    background: #fff;
+}
+
+.notification-card select:focus {
+    border-color: #555;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+}
+
+#notificationUrlHelp {
+    display: block;
+    margin-top: 7px;
+    color: #777;
+    font-size: 12px;
+    line-height: 1.5;
+}
