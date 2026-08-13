@@ -238,11 +238,7 @@ export async function requestNotificationPermission() {
  "unknown",
 
  userAgent:
- navigator.userAgent,
-
- subscriptions: {
-  team: true
- }
+ navigator.userAgent
  },
 
  {

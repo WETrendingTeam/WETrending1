@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Community | WETrendingTeam</title>
+<link rel="stylesheet" href="community.css">
+<script type="module" src="community.js"></script>
+</head>
+<body>
+<header class="community-top">
+  <a class="back" href="campaign.html" aria-label="Back to campaign">←</a>
+  <div class="brand">
+    <span>WETRENDINGTEAM</span>
+    <h1>Community</h1>
+    <p>Connect. Discuss. Share.</p>
+  </div>
+  <a class="announcement" href="https://x.com/gmmtv/status/2087766162046329305?s=46" target="_blank" rel="noopener">Official announcement ↗</a>
+</header>
+
+<nav class="community-nav" aria-label="Community navigation">
+  <a class="active" href="#overview">Overview</a>
+  <a href="#features">#Features</a>
+  <a href="#polls">#Polls</a>
+  <a href="#results">#Results</a>
+  <a href="#discussions">#Discussions</a>
+</nav>
+
+<main id="overview">
+  <section class="overview-head">
+    <div>
+      <span class="eyebrow">COMMUNITY HUB • EPISODE 08</span>
+      <h2>More than a chat.</h2>
+      <p>Explore fan features, make choices, see episode results, track where the fandom is trending and join the conversation.</p>
+    </div>
+    <div class="release-box">
+      <span>YOU MANIAC</span>
+      <strong id="communityCountdown">04:00 PM</strong>
+      <small>Thailand release time</small>
+    </div>
+  </section>
+
+  <section class="mini-grid" id="features">
+    <div class="section-heading"><span>★</span><h2>#Features</h2><a href="#features">View</a></div>
+    <div class="feature-grid">
+      <article class="feature-card quote">
+        <span class="tag">QUOTE OF THE WEEK</span>
+        <h3>“It was never just a game for me.”</h3>
+        <small>— Lade</small>
+        <b>♥ 2.8K</b>
+      </article>
+      <article class="feature-card image-card">
+        <img src="images/hero2.jpg" alt="Outfit of the episode">
+        <div><span class="tag">OUTFIT OF THE EPISODE</span><h3>Fan Favourite</h3><b>♥ 3.4K</b></div>
+      </article>
+      <article class="feature-card image-card">
+        <img src="images/hero1.jpg" alt="Moment of the episode">
+        <div><span class="tag">MOST VIRAL MOMENT</span><h3>The Moment</h3><b>♥ 5.6K</b></div>
+      </article>
+      <article class="feature-card">
+        <span class="tag">TOP TRENDER</span>
+        <h3>@Lade</h3>
+        <p>Maniac of the week</p>
+        <div class="progress"><i style="width:88%"></i></div>
+        <b>88% Maniac level</b>
+      </article>
+    </div>
+  </section>
+
+  <section class="two-col" id="polls">
+    <div class="panel">
+      <div class="section-heading"><span>◉</span><h2>#Polls</h2></div>
+      <div class="poll">
+        <span class="tag">FAN CHOICE</span>
+        <h3>Which outfit was your favourite?</h3>
+        <div class="poll-row"><span>Look 1</span><i><b style="width:48%"></b></i><strong>48%</strong></div>
+        <div class="poll-row"><span>Look 2</span><i><b style="width:32%"></b></i><strong>32%</strong></div>
+        <div class="poll-row"><span>Look 3</span><i><b style="width:20%"></b></i><strong>20%</strong></div>
+        <small>3,842 votes</small>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="section-heading"><span>⚑</span><h2>Red Flag Meters</h2></div>
+      <div class="meter-pair">
+        <div class="meter-card"><div><b>Dean</b><strong id="deanLabel">MAJOR RED FLAG</strong></div><input id="deanMeter" type="range" min="0" max="100" value="72"><small><b id="deanValue">72%</b> community placement</small></div>
+        <div class="meter-card"><div><b>Moth</b><strong id="mothLabel">CALL YOUR THERAPIST</strong></div><input id="mothMeter" type="range" min="0" max="100" value="84"><small><b id="mothValue">84%</b> community placement</small></div>
+      </div>
+      <button class="save-btn" id="saveMeters">Save My Placements</button>
+    </div>
+  </section>
+
+  <section class="panel results-panel" id="results">
+    <div class="section-heading"><span>▥</span><h2>#Results</h2><small>Episode data</small></div>
+    <div class="result-grid">
+      <div><span>EPISODE RATING</span><b>9.4<span>/10</span></b><small>2,853 ratings</small></div>
+      <div><span>POSTS</span><b>12.8K</b><small>community + campaign</small></div>
+      <div><span>ENGAGEMENT</span><b>1.32M</b><small>total interactions</small></div>
+      <div><span>POTENTIAL REACH</span><b>4.6M</b><small>estimated</small></div>
+      <div><span>COUNTRIES</span><b>62</b><small>trending in</small></div>
+    </div>
+    <div class="country-strip"><span>🌍 Trending in</span><b>Thailand</b><b>Philippines</b><b>Nigeria</b><b>Brazil</b><b>USA</b><b>+57</b></div>
+  </section>
+
+  <section class="panel" id="discussions">
+    <div class="section-heading"><span>▣</span><h2>#Discussions</h2><span class="live-dot">● LIVE</span></div>
+    <div class="discussion-layout">
+      <div class="prompt-box">
+        <span class="tag">TALK WITH THE FANDOM</span>
+        <h3>What was your favourite moment?</h3>
+        <p>Join anonymously with a fan name. You don't need a real account.</p>
+        <a href="#fan-conversation" class="prompt-btn">Join conversation ↓</a>
+      </div>
+      <div class="discussion-box">
+        <div class="discussion-head"><h3>Latest community</h3><span id="episodeCommentCount">0 comments</span></div>
+        <form class="comment-form" data-thread="episode">
+          <textarea maxlength="500" placeholder="Share your thoughts..." required></textarea>
+          <div class="form-row"><small>⚠️ Be respectful. Admin may remove disrespectful posts.</small><button type="submit">Post</button></div>
+        </form>
+        <div class="comments" id="episodeComments"><div class="empty">Loading community...</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rules" id="fan-conversation">
+    <h3>⚠️ Community rules</h3>
+    <p><b>Keep discussions respectful or admin will remove you.</b> You can join anonymously with a fan name. Let’s please be respectful to one another. We’re all here to support WilliamEst.</p>
+  </section>
+</main>
+
+<div class="behavior-modal" id="behaviorModal" hidden>
+  <div class="behavior-card">
+    <button id="closeBehavior" aria-label="Close">×</button>
+    <span class="tag">CHARACTER BEHAVIOUR</span>
+    <h2 id="behaviorTitle">Dean</h2>
+    <div class="behavior-result" id="behaviorResult">MAJOR RED FLAG</div>
+    <p>Fans can judge both characters separately for this episode.</p>
+  </div>
+</div>
+
+<script>
+const labels=[{m:14,t:"INNOCENT — FOR NOW"},{m:29,t:"LIED A LITTLE"},{m:49,t:"QUESTIONABLE CHOICES"},{m:64,t:"EMOTIONALLY CONFUSING"},{m:79,t:"MAJOR RED FLAG"},{m:91,t:"CALL YOUR THERAPIST"},{m:100,t:"YOU MANIAC"}];
+function meterText(v){return labels.find(x=>v<=x.m).t}
+function bindMeter(id,value,label){
+ const input=document.getElementById(id), out=document.getElementById(value), text=document.getElementById(label);
+ const update=()=>{out.textContent=input.value+"%";text.textContent=meterText(+input.value)};
+ input.addEventListener("input",update); update();
+}
+bindMeter("deanMeter","deanValue","deanLabel"); bindMeter("mothMeter","mothValue","mothLabel");
+document.getElementById("saveMeters").onclick=()=>alert("Your Dean and Moth placements have been saved for this prototype.");
+const target=Date.UTC(2026,7,13,9);
+function communityTimer(){const d=target-Date.now();const e=document.getElementById("communityCountdown");if(!e)return;if(d<=0){e.textContent="LIVE NOW";return}const h=Math.floor(d/36e5),m=Math.floor(d%36e5/6e4),s=Math.floor(d%6e4/1e3);e.textContent=[h,m,s].map(x=>String(x).padStart(2,"0")).join(":")}
+communityTimer();setInterval(communityTimer,1000);
+document.querySelectorAll(".community-nav a").forEach(a=>a.addEventListener("click",()=>{document.querySelectorAll(".community-nav a").forEach(x=>x.classList.remove("active"));a.classList.add("active")}));
+</script>
+</body>
+</html>

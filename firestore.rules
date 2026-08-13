@@ -1,25 +1,17 @@
 rules_version = '2';
-
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    function signedIn() {
-      return request.auth != null;
-    }
-
+    // =========================================================
+    // EXISTING WETrendingTeam PROTECTION
+    // =========================================================
+    function signedIn() { return request.auth != null; }
     function isControl() {
-      return signedIn() &&
-        request.auth.token.email == "lade.galleria@gmail.com";
+      return signedIn() && request.auth.token.email == "lade.galleria@gmail.com";
     }
-
     function isAdmin() {
-      return signedIn() &&
-        request.auth.token.email == "wetrendingteam@gmail.com";
+      return signedIn() && request.auth.token.email == "wetrendingteam@gmail.com";
     }
-
-    function isManagement() {
-      return isControl() || isAdmin();
-    }
+    function isManagement() { return isControl() || isAdmin(); }
 
     match /users/{userId} {
       allow read: if signedIn() && (
@@ -36,8 +28,7 @@ service cloud.firestore {
     }
 
     match /fcmTokens/{tokenId} {
-      allow create: if signedIn() &&
-        request.resource.data.uid == request.auth.uid;
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
       allow read, update, delete: if isAdmin() || isControl();
     }
 
@@ -49,6 +40,90 @@ service cloud.firestore {
       allow read, write: if isControl();
     }
 
+    // =========================================================
+    // COMMUNITY ONLY
+    // Anonymous Firebase users are allowed to participate here.
+    // They do NOT get access to any of the collections above.
+    // =========================================================
+    function validCommunityCreate() {
+      return signedIn()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() > 0
+        && request.resource.data.displayName.size() <= 30
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 500;
+    }
+
+    function validReaction() {
+      return signedIn()
+        && request.resource.data.uid == request.auth.uid;
+    }
+
+    match /communityEpisodeComments/{commentId} {
+      // Fans can only read the community collection.
+      allow read: if signedIn();
+
+      // Fans can create their own comments.
+      allow create: if validCommunityCreate()
+        && request.resource.data.reactionCount == 0;
+
+      // A fan may only change reactionCount. Management can moderate.
+      allow update: if isManagement()
+        || (signedIn()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["reactionCount"]));
+
+      // A fan may delete only their own comment.
+      allow delete: if isManagement()
+        || (signedIn() && resource.data.uid == request.auth.uid);
+
+      match /reactions/{uid} {
+        allow read: if signedIn();
+        allow create: if signedIn() && uid == request.auth.uid && validReaction();
+        allow delete: if signedIn() && uid == request.auth.uid;
+        allow update: if false;
+      }
+
+      match /replies/{replyId} {
+        allow read: if signedIn();
+        allow create: if validCommunityCreate();
+        allow update: if isManagement();
+        allow delete: if isManagement()
+          || (signedIn() && resource.data.uid == request.auth.uid);
+      }
+    }
+
+    match /communityCampaignComments/{commentId} {
+      allow read: if signedIn();
+
+      allow create: if validCommunityCreate()
+        && request.resource.data.reactionCount == 0;
+
+      allow update: if isManagement()
+        || (signedIn()
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["reactionCount"]));
+
+      allow delete: if isManagement()
+        || (signedIn() && resource.data.uid == request.auth.uid);
+
+      match /reactions/{uid} {
+        allow read: if signedIn();
+        allow create: if signedIn() && uid == request.auth.uid && validReaction();
+        allow delete: if signedIn() && uid == request.auth.uid;
+        allow update: if false;
+      }
+
+      match /replies/{replyId} {
+        allow read: if signedIn();
+        allow create: if validCommunityCreate();
+        allow update: if isManagement();
+        allow delete: if isManagement()
+          || (signedIn() && resource.data.uid == request.auth.uid);
+      }
+    }
+
+    // Deny everything else by default.
     match /{document=**} {
       allow read, write: if false;
     }

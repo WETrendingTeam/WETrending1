@@ -77,88 +77,48 @@ if(slides.length > 0){
 
 
 /* ==========================
-   COUNTDOWN
+   COUNTDOWN — YOU MANIAC RELEASE
+   4:00 PM Thailand time (Asia/Bangkok)
 ========================== */
 
-// TRAILER COUNTDOWN
-// Official trailer day: Wednesday, August 12, 2026.
-// This currently counts to the start of Wednesday because no official
-// release time has been provided yet. Update this one line when the
-// exact trailer time is announced.
-const targetDate = new Date(
-    "August 12, 2026 00:00:00"
-).getTime();
-
-
+const releaseTarget = Date.UTC(2026, 7, 13, 9, 0, 0);
 
 function updateCountdown(){
 
-    const now = new Date().getTime();
+    const now = Date.now();
+    const distance = releaseTarget - now;
 
-    const distance = targetDate - now;
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
 
+    if(distance <= 0){
+        if(daysEl) daysEl.textContent = "00";
+        if(hoursEl) hoursEl.textContent = "00";
+        if(minutesEl) minutesEl.textContent = "00";
+        if(secondsEl) secondsEl.textContent = "00";
 
-    if(distance < 0){
-
+        const label = document.querySelector(".countdown .section-title");
+        const sub = document.querySelector(".countdown .section-subtitle");
+        if(label) label.textContent = "🔴 YOU MANIAC IS LIVE";
+        if(sub) sub.textContent = "The campaign release time has arrived. Let's support WilliamEst worldwide.";
         return;
-
     }
 
+    const days = Math.floor(distance / 86400000);
+    const hours = Math.floor((distance % 86400000) / 3600000);
+    const minutes = Math.floor((distance % 3600000) / 60000);
+    const seconds = Math.floor((distance % 60000) / 1000);
 
-    const days = Math.floor(
-        distance /
-        (1000 * 60 * 60 * 24)
-    );
-
-
-    const hours = Math.floor(
-        (distance %
-        (1000 * 60 * 60 * 24))
-        /
-        (1000 * 60 * 60)
-    );
-
-
-    const minutes = Math.floor(
-        (distance %
-        (1000 * 60 * 60))
-        /
-        (1000 * 60)
-    );
-
-
-    const seconds = Math.floor(
-        (distance %
-        (1000 * 60))
-        /
-        1000
-    );
-
-
-    if(document.getElementById("days"))
-    document.getElementById("days").innerHTML = days;
-
-
-    if(document.getElementById("hours"))
-    document.getElementById("hours").innerHTML = hours;
-
-
-    if(document.getElementById("minutes"))
-    document.getElementById("minutes").innerHTML = minutes;
-
-
-    if(document.getElementById("seconds"))
-    document.getElementById("seconds").innerHTML = seconds;
-
+    if(daysEl) daysEl.textContent = String(days).padStart(2,"0");
+    if(hoursEl) hoursEl.textContent = String(hours).padStart(2,"0");
+    if(minutesEl) minutesEl.textContent = String(minutes).padStart(2,"0");
+    if(secondsEl) secondsEl.textContent = String(seconds).padStart(2,"0");
 }
 
-
 updateCountdown();
-
-setInterval(
-    updateCountdown,
-    1000
-);
+setInterval(updateCountdown,1000);
 
 
 

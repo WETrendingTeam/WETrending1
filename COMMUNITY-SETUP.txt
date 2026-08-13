@@ -1,0 +1,39 @@
+WETrendingTeam Community — SAFE SETUP
+
+This build uses Firebase Anonymous Authentication. Fans do NOT need email/password accounts.
+
+IMPORTANT SECURITY DESIGN
+- The original WETrendingTeam collections remain protected.
+- Anonymous users are granted access ONLY to:
+  communityEpisodeComments
+  communityCampaignComments
+  and their reactions/replies subcollections.
+- Do NOT replace the rules with: allow read, write: if request.auth != null;
+  That would be too broad for the rest of the project.
+
+ONE-TIME FIREBASE SETUP
+1. Firebase Console -> Authentication -> Sign-in method -> enable Anonymous.
+2. Authentication -> Settings -> Authorized domains -> add the exact live Netlify domain.
+3. Firebase Console -> Firestore Database -> Rules.
+4. Replace the deployed rules with the firestore.rules file included in this build.
+5. Click Publish.
+
+WHY THIS VERSION FIXES THE PERMISSION ERROR
+The community page now waits for the anonymous Firebase user to exist BEFORE starting the Firestore listeners. The previous version could start the listener while request.auth was still null, causing a permanent "Missing or insufficient permissions" listener error.
+
+WHAT FANS CAN DO
+- Choose a display name or continue as Fan.
+- Post comments anonymously.
+- Reply to other fans anonymously.
+- Add/remove their own reaction.
+- See live comment and reaction counts.
+
+WHAT FANS CANNOT ACCESS
+- users
+- notifications
+- fcmTokens
+- campaigns
+- trendRequests
+- management/admin-only data
+
+The displayed fan name is stored locally in the browser. Firebase supplies the anonymous UID used to protect each user's own reactions and posts.

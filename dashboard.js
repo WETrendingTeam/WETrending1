@@ -31,7 +31,7 @@ onAuthStateChanged(auth, (user) => {
   if (roleEl) roleEl.textContent = "Control Center";
 
   const welcome = document.querySelector(".welcome h1");
-  if (welcome) welcome.textContent = "Welcome Back";
+  if (welcome) welcome.textContent = "Welcome Back 👋";
 
   liveCount("users", "usersCount");
   liveCount("campaigns", "campaignCount");

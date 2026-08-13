@@ -111,32 +111,27 @@
 
             <!-- TREND CENTER -->
 
-            <a href="#trendCenterModal" 
-               class="hub-card trend" 
+            <a href="#trendCenterModal"
+               class="hub-card trend"
                id="trendCenterBtn"
                aria-haspopup="dialog"
                aria-controls="trendCenterModal">
-
 
                 <span>
                     📲
                 </span>
 
-
                 <h2>
                     Trend Center
                 </h2>
-
 
                 <p>
                     Create. Generate. Amplify
                 </p>
 
-
                 <small>
                     Open Trend Center
                 </small>
-
 
             </a>
 
@@ -145,7 +140,6 @@
 
 
     </div>
-
 
 
 
@@ -179,32 +173,25 @@
             <div class="trend-center-options">
 
                 <div class="trend-center-option studio-option">
-
                     <div>
                         <h3>Studio</h3>
-                        
                     </div>
-
                     <button type="button"
                             class="trend-center-coming-soon"
                             disabled>
                         COMING SOON
                     </button>
-
                 </div>
 
                 <div class="trend-center-option space-option">
-
                     <div>
                         <h3>WETrending SPACE</h3>
                         <p>Intent Links &amp; Updates</p>
                     </div>
-
                     <a class="trend-center-enter"
                        href="space.html">
                         ENTER WETrending SPACE
                     </a>
-
                 </div>
 
             </div>
@@ -212,6 +199,7 @@
         </section>
 
     </div>
+
 
     <!-- FOOTER -->
 
@@ -252,7 +240,6 @@
 ========================================== */
 
 (function () {
-
     const trigger = document.getElementById("trendCenterBtn");
     const modal = document.getElementById("trendCenterModal");
     const closeButton = document.getElementById("trendCenterClose");
@@ -261,14 +248,10 @@
 
     function openTrendCenter(event) {
         if (event) event.preventDefault();
-
         modal.classList.add("open");
         modal.setAttribute("aria-hidden", "false");
         document.body.classList.add("trend-center-open");
-
-        if (closeButton) {
-            closeButton.focus();
-        }
+        closeButton?.focus();
     }
 
     function closeTrendCenter() {
@@ -278,26 +261,19 @@
     }
 
     trigger.addEventListener("click", openTrendCenter);
-
-    if (closeButton) {
-        closeButton.addEventListener("click", closeTrendCenter);
-    }
-
-    modal.addEventListener("click", function (event) {
+    closeButton?.addEventListener("click", closeTrendCenter);
+    modal.addEventListener("click", (event) => {
         if (event.target.hasAttribute("data-close-trend-center")) {
             closeTrendCenter();
         }
     });
-
-    document.addEventListener("keydown", function (event) {
+    document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && modal.classList.contains("open")) {
             closeTrendCenter();
         }
     });
-
 })();
 </script>
-
 <!-- SERVICE WORKER TEMPORARILY DISABLED -->
 
 <script>
